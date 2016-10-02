@@ -14,7 +14,7 @@
         $.get('navbar.html', function(template) {
             var rendered = Mustache.render(template);
             $('header').html(rendered);
-            $('nav ul li:nth-child(2)').addClass('active');
+            $('#to-incidents').addClass('active');
         });
     }
     </script>
@@ -23,14 +23,7 @@
     <header></header>
 
     <section id="content">
-         <div class="container">
-            <div class="row">
-                <div class="page-header">
-                    <h2>Ocorrências</h2>
-                </div>
-            </div>
-            <div id="map" class="map"></div>
-        </div>
+        <div id="map" class="map"></div> 
         <div class="modal fade" id="info-window" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
