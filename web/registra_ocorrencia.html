@@ -21,67 +21,83 @@
 
 </head>
 <body>
-  <div class="bloco-esquerda" method="post">
-    <form>
-    <div class="form-group row">
-      <label for="local" class="col-xs-2 col-form-label">Local</label>
-      <div class="col-xs-10">
-        <input class="form-control" type="text" value="Artisanal kale" id="local">
+  <form method="post">
+    <div class="bloco bloco-esquerda">
+      <div class="form-group row">
+        <label for="local" class="col-xs-2 col-form-label">Local</label>
+        <div class="col-xs-10">
+          <input class="form-control" type="text" value="Artisanal kale" id="local">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="horario" class="col-xs-2 col-form-label">Horario</label>
+        <div class="col-xs-10">
+          <input class="form-control" type="time" value="13:45:00" id="horario">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="data" class="col-xs-2 col-form-label">Data</label>
+        <div class="col-xs-10">
+          <input class="form-control" type="date" value="19-08-2011" id="data">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="transporte" class="col-xs-2 col-form-label">Transporte</label>
+        <div class="col-xs-10">
+          <select class="form-control">
+            <option>A pé</option>
+            <option>Carro</option>
+            <option>Metrô</option>
+            <option>Ônibus</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="descricao" class="col-xs-2 col-form-label">Descrição</label>
+        <div class="col-xs-10">
+          <input class="form-control" type="text" value="Antes de ser abordado, estava..." id="descricao">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="numero-assaltante" class="col-xs-2 col-form-label">Número de Assaltantes</label>
+        <div class="col-xs-10">
+          <input class="form-control" type="number" value="1" id="numero-assaltante" min="1">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="armado" class="col-xs-2 col-form-label">Estava Armado</label>
+        <label class="form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="armadoSim" value="option1"> Sim
+        </label>
+        <label class="form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="armadoNao" value="option2"> Não
+        </label>
       </div>
     </div>
 
-    <div class="form-group row">
-      <label for="horario" class="col-xs-2 col-form-label">Horario</label>
-      <div class="col-xs-10">
-        <input class="form-control" type="time" value="13:45:00" id="horario">
+    <div class="bloco bloco-direita">
+      <div class="form-group row">
+        <label for="transporte-assaltante" class="col-xs-2 col-form-label">Transporte dos Assaltantes</label>
+        <div class="col-xs-10">
+          <select class="form-control">
+            <option>A pé</option>
+            <option>Carro</option>
+            <option>Metrô</option>
+            <option>Ônibus</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row">
-      <label for="data" class="col-xs-2 col-form-label">Data</label>
-      <div class="col-xs-10">
-        <input class="form-control" type="date" value="19-08-2011" id="data">
-      </div>
+      <button type="submit" class="btn btn-default botao-direita">Submit</button>
     </div>
+  </form>
 
-    <div class="form-group row">
-      <label for="transporte" class="col-xs-2 col-form-label">Transporte</label>
-      <div class="col-xs-10">
-        <select class="form-control">
-          <option>A pé</option>
-          <option>Carro</option>
-          <option>Metrô</option>
-          <option>Ônibus</option>
-        </select>
-      </div>
-    </div>
 
-    <div class="form-group row">
-      <label for="descricao" class="col-xs-2 col-form-label">Descrição</label>
-      <div class="col-xs-10">
-        <input class="form-control" type="text" value="Antes de ser abordado, estava..." id="descricao">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="numero-assaltante" class="col-xs-2 col-form-label">Número de Assaltantes</label>
-      <div class="col-xs-10">
-        <input class="form-control" type="number" value="1" id="numero-assaltante" min="1">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="armado" class="col-xs-2 col-form-label">Estava Armado</label>
-      <label class="form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="armadoSim" value="option1"> Sim
-      </label>
-      <label class="form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="armadoNao" value="option2"> Não
-      </label>
-    </div>
-
-    <button type="submit" class="btn btn-default">Submit</button>
-    </form>
-  </div>
 </body>
 </html>

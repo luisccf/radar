@@ -1,0 +1,18 @@
+.bloco {
+  width: 40%;
+  margin-top: 10%;
+}
+
+.bloco-direita {
+  margin-right: 3%;
+  float: right;
+}
+
+.bloco-esquerda {
+  margin-left: 3%;
+  float: left;
+}
+
+.botao-direita {
+  float: right;
+}
