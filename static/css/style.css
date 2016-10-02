@@ -15,6 +15,9 @@ nav {
 a[data-toggle=modal] {
     cursor: pointer;
 }
+.row.page-header > a[data-toggle=modal] {
+    font-size: 12px;
+}
 .modal-open .modal {
     display: flex;
     height: 100%;
