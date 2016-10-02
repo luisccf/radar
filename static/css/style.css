@@ -19,3 +19,12 @@ nav {
 .modal-open .modal .modal-dialog {
     margin: auto;
 }
+.modal .modal-footer {
+    text-align: center;
+}
+.modal .modal-footer button.btn {
+    margin-bottom: 10px;
+}
+.modal .modal-footer a {
+    font-size: 12px;
+}
