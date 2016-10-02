@@ -12,6 +12,9 @@ nav {
     opacity: 0.95;
     z-index: 1;
 }
+a[data-toggle=modal] {
+    cursor: pointer;
+}
 .modal-open .modal {
     display: flex;
     height: 100%;
