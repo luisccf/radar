@@ -56,7 +56,9 @@ document.getElementById("submit-button").addEventListener('click',function (evt)
     for (var i = 0, max = formulario.length; i < max; ++i) {
       var input = formulario[i];
       if (input.name) {
-        dados[input.name] = input.value;
+        console.log(input.type);
+        if(((input.type != "radio" && input.type != "checkbox") || (input.type == "radio" && input.checked == true) || (input.type == "checkbox" && input.checked == true)))
+          dados[input.name] = input.value;
       }
     }
 

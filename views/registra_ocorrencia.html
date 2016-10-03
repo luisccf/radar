@@ -29,7 +29,7 @@
 <div class="form-group row" id="local-div">
 <label for="local" class="col-xs-2 col-form-label">Local</label>
 <div class="col-xs-10">
-<input class="form-control" type="text" id="local">
+<input class="form-control" type="text" name="local" id="local">
 <span id="local-error"></span>
 <small class="form-text text-muted">Exemplo: Rua Sacadura Cabral - Vila Oeste, Belo Horizonte - MG</small>
 </div>
@@ -38,7 +38,7 @@
 <div class="form-group row" id="horario-div">
 <label for="horario" class="col-xs-2 col-form-label">Horario</label>
 <div class="col-xs-10">
-<input class="form-control" type="time" id="horario">
+<input class="form-control" type="time" name="horario" id="horario">
 <span id="horario-error"></span>
 <small class="form-text text-muted">Exemplo: 13:45</small>
 </div>
@@ -47,7 +47,7 @@
 <div class="form-group row" id="data-div">
 <label for="data" class="col-xs-2 col-form-label">Data</label>
 <div class="col-xs-10">
-<input class="form-control" type="date" id="data">
+<input class="form-control" type="date" name="data" id="data">
 <span id="data-error"></span>
 <small class="form-text text-muted">Exemplo: 19-08-2011</small>
 </div>
@@ -56,7 +56,7 @@
 <div class="form-group row">
 <label for="transporte" class="col-xs-2 col-form-label">Transporte</label>
 <div class="col-xs-10">
-<select class="form-control">
+<select class="form-control" name="transporte">
 <option>A pé</option>
 <option>Carro</option>
 <option>Metrô</option>
@@ -68,7 +68,7 @@
 <div class="form-group row">
 <label for="descricao" class="col-xs-2 col-form-label">Descrição</label>
 <div class="col-xs-10">
-<input class="form-control" type="text" id="descricao">
+<input class="form-control" type="text" name="descricao" id="descricao">
 <small class="form-text text-muted">Exemplo: Antes de ser abordado, estava...</small>
 </div>
 </div>
@@ -76,7 +76,7 @@
 <div class="form-group row">
 <label for="numero-assaltante" class="col-xs-2 col-form-label">Número de assaltantes</label>
 <div class="col-xs-10">
-<input class="form-control" type="number" value="1" id="numero-assaltante" min="1">
+<input class="form-control" type="number" name="numero_assaltantes" value="1" id="numero-assaltante" min="1">
 </div>
 </div>
 
@@ -95,7 +95,7 @@
 <div class="form-group row">
 <label for="transporte-assaltante" class="col-xs-2 col-form-label">Transporte dos assaltantes</label>
 <div class="col-xs-10">
-<select class="form-control">
+<select class="form-control"  name="transporte_assaltante">
 <option>A pé</option>
 <option>Carro</option>
 <option>Metrô</option>
@@ -117,14 +117,14 @@
 <div class="form-group row">
 <label for="numero-acompanhantes" class="col-xs-2 col-form-label">Quantos acompanhantes você tinha?</label>
 <div class="col-xs-10">
-<input class="form-control" type="number" value="0" id="numero-acompanhantes" min="0">
+<input class="form-control" type="number" name="qtd_acompanhante_vitima" value="0" id="numero-acompanhantes" min="0">
 </div>
 </div>
 
 <div class="form-group row">
 <label for="codigo-bo" class="col-xs-2 col-form-label">Código do BO</label>
 <div class="col-xs-10">
-<input class="form-control" type="text" value="" id="codigo-bo">
+<input class="form-control" type="text" name="codigo_BO" value="" id="codigo-bo">
 </div>
 </div>
 
@@ -134,7 +134,7 @@
 <div class="block-one-third">
 <div class="form-check">
 <label class="form-check-label">
-<input type="checkbox" class="form-check-input">
+<input type="checkbox" name="bolsa" class="form-check-input">
 Bolsa
 </label>
 </div>
@@ -143,7 +143,7 @@ Bolsa
 <div class="block-two-third">
 <div class="form-check">
 <label class="form-check-label">
-<input type="checkbox" class="form-check-input">
+<input type="checkbox" name="celular" class="form-check-input">
 Celular
 </label>
 </div>
@@ -152,7 +152,7 @@ Celular
 <div class="block-two-third">
 <div class="form-check">
 <label class="form-check-label">
-<input type="checkbox" class="form-check-input">
+<input type="checkbox" name="carro" class="form-check-input">
 Carro
 </label>
 </div>
@@ -161,7 +161,7 @@ Carro
 <div class="block-one-third">
 <div class="form-check">
 <label class="form-check-label">
-<input type="checkbox" class="form-check-input">
+<input type="checkbox" name="dinheiro" class="form-check-input">
 Dinheiro
 </label>
 </div>
@@ -170,7 +170,7 @@ Dinheiro
 <div class="block-two-third">
 <div class="form-check">
 <label class="form-check-label">
-<input type="checkbox" class="form-check-input">
+<input type="checkbox" name="documento" class="form-check-input">
 Documento
 </label>
 </div>
@@ -179,7 +179,7 @@ Documento
 <div class="block-two-third">
 <div class="form-check">
 <label class="form-check-label">
-<input type="checkbox" class="form-check-input">
+<input type="checkbox" name="tenis" class="form-check-input">
 Tênis
 </label>
 </div>
