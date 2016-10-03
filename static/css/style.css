@@ -1,9 +1,9 @@
 .map {
     height: 100%;
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 .block {
   width: 40%;
@@ -20,7 +20,7 @@ blockquote p {
   margin-right: 3%;
 }
 .block-one-third {
-  display: inline; /*Bug da margem dupla para floats no IE*/ 
+  display: inline; /*Bug da margem dupla para floats no IE*/
   float: left;
   width: 30%;
 }
@@ -30,6 +30,9 @@ blockquote p {
 }
 .button-right {
   float: right;
+}
+.error-symbol{
+  visibility: hidden;
 }
 #header-registro-ocorrencia {
   font-size: 40px;
@@ -50,7 +53,7 @@ a[data-toggle=modal] {
 .modal-open .modal {
     display: flex;
     height: 100%;
-} 
+}
 .modal-open .modal .modal-dialog {
     margin: auto;
 }
@@ -63,6 +66,3 @@ a[data-toggle=modal] {
 .modal .modal-footer a {
     font-size: 12px;
 }
-
-
-
