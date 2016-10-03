@@ -31,9 +31,6 @@ blockquote p {
 .button-right {
   float: right;
 }
-.error-symbol{
-  visibility: hidden;
-}
 #header-registro-ocorrencia {
   font-size: 40px;
   height: 12%;
