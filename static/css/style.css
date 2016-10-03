@@ -5,8 +5,23 @@
     left: 0; 
     right: 0; 
 }
+.block {
+  width: 40%;
+  margin-top: 10%;
+}
+.block-left {
+  margin-left: 3%;
+  float: left;
+}
 blockquote p {
     font-size: 13px;
+}
+.block-right {
+  margin-right: 3%;
+  float: right;
+}
+.button-right {
+  float: right;
 }
 nav {
     opacity: 0.95;
@@ -34,3 +49,6 @@ a[data-toggle=modal] {
 .modal .modal-footer a {
     font-size: 12px;
 }
+
+
+
