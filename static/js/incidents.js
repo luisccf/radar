@@ -151,6 +151,7 @@ var loadInfoWindow = function(incident) {
 }
 
 $(function() {
+    loadTemplate();
     initMap();
     loadMarkers(incidents);
 });
