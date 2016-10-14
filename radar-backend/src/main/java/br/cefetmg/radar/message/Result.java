@@ -16,6 +16,7 @@ public class Result {
     public static final String EMAIL_EXISTS = "EMAIL_EXISTS";
     public static final String TOO_YOUNG = "TOO_YOUNG";
     public static final String USER_DOESNT_EXISTS = "USER_DOESNT_EXISTS";
+    public static final String INVALID_DATE = "INVALID_DATE";
 
     public Result(String result) {
         this.result = result;

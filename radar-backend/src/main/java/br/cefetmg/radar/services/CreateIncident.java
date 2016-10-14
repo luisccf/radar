@@ -5,26 +5,36 @@
  */
 package br.cefetmg.radar.services;
 
-import br.cefetmg.radar.entity.User;
-import br.cefetmg.radar.dao.UserDAO;
+import br.cefetmg.radar.dao.IncidentDAO;
+import br.cefetmg.radar.entity.Incident;
 import br.cefetmg.radar.message.Result;
-import br.cefetmg.radar.util.cryptography.MD5;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ *
+ * @author rafae_000
+ */
+@WebServlet(name = "CreateIncident", urlPatterns = {"/createincident"})
+public class CreateIncident extends HttpServlet {
 
-@WebServlet(urlPatterns = {"/createuser"})
-public class CreateUser extends HttpServlet {
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -43,53 +53,28 @@ public class CreateUser extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
-            UserDAO userDAO = new UserDAO();
+            IncidentDAO incidentDAO = new IncidentDAO();
 
-            User newUser = gson.fromJson(sb.toString(), User.class);
+            Incident newIncident = gson.fromJson(sb.toString(), Incident.class);
 
             Date currentDate = new Date();
             
-            long yearsdiff = Math.round((currentDate.getTime() - newUser.getBirth().getTime()) / (1000l*60*60*24*365));
-                
-            if (newUser.getPassword().length() >= 4) {
-                if (newUser.getUsername().length() >= 4) {
-                    if (userDAO.getByUsername(newUser.getUsername()) == null) {
-                        if(userDAO.getByEmail(newUser.getEmail()) == null){
-                            if(yearsdiff > 13){
-                                newUser.setPassword(MD5.crypt(newUser.getPassword()));
-                                newUser.setActive(true);
-                                
-                                if(newUser.getHeight()== 0){
-                                    newUser.setHeight(-1);
-                                }
-
-                                userDAO.createUser(newUser);
-
-                                out.println(gson.toJson(new Result(Result.OK)));
-                            } else {
-                                out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
-                            }
-                        } else {
-                            out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
-                        }                       
-                    } else {
-                        out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
-                    }
-                } else {
-                    out.println(gson.toJson(new Result(Result.SHORT_USERNAME)));
-                }
+            long secondsdiff = Math.round((currentDate.getTime() - newIncident.getDate().getTime()) / (1000l));    
+            
+            if(secondsdiff >= 0){ //se a data inserida for válida, adiciona a ocorrência no banco
+                incidentDAO.createIncident(newIncident);
+                out.println(gson.toJson(new Result(Result.OK)));
             } else {
-                out.println(gson.toJson(new Result(Result.SHORT_PASSWORD)));
+                out.println(gson.toJson(new Result(Result.INVALID_DATE)));
             }
+            
         } catch (Exception ex) {
             out.println(gson.toJson(new Result(Result.ERRO, ex.getMessage())));
             ex.printStackTrace();
         }
-
+        
         out.close();
     }
-    
-   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -100,24 +85,11 @@ public class CreateUser extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    /*
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.processRequest(request, response);
+        processRequest(request, response);
     }
-    */
-
-    /*
-    @Override
-    protected void doOptions(HttpServletRequest request, HttpServletResponse response) {
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-    }
-    */
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -130,7 +102,7 @@ public class CreateUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

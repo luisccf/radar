@@ -5,6 +5,7 @@
  */
 package br.cefetmg.radar.entity;
 
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,6 +35,9 @@ public class User {
     
     private int height;
     private boolean active;
+    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    public Collection <Incident> incidents;
 
     
     public int getId() {
