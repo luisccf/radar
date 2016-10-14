@@ -59,16 +59,8 @@ public class CreateUser extends HttpServlet {
                                 newUser.setPassword(MD5.crypt(newUser.getPassword()));
                                 newUser.setActive(true);
                                 
-                                if(newUser.getColor() == 0){
-                                    newUser.setColor(-1);
-                                }
-                                
                                 if(newUser.getHeight()== 0){
                                     newUser.setHeight(-1);
-                                }
-                                
-                                if(newUser.getGender()== 0){
-                                    newUser.setGender(-1);
                                 }
 
                                 userDAO.createUser(newUser);

@@ -128,23 +128,12 @@ public class UserDAO {
                 userPersisted.setEmail(newUser.getEmail());
                 userPersisted.setBirth(newUser.getBirth());
                 userPersisted.setActive(newUser.getActive());
-                
-                if(newUser.getColor() == 0){
-                    userPersisted.setColor(-1);
-                } else {
-                    userPersisted.setColor(newUser.getColor());
-                }
+                userPersisted.setColor(newUser.getColor());
 
                 if(newUser.getHeight() == 0){
                     userPersisted.setHeight(-1);
                 } else {
                     userPersisted.setHeight(newUser.getHeight());
-                }
-
-                if(newUser.getGender() == 0){
-                    userPersisted.setGender(-1);
-                } else {
-                    userPersisted.setGender(newUser.getGender());
                 }
                 
             } else {

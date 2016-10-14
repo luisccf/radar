@@ -15,19 +15,27 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "user") 
 @XmlRootElement
 public class User {
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private int id;
     private String username;
     private String password;
     private String email;
     private Date birth;
-    private int gender;
-    private int color;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gender_id", nullable = false)
+    private Gender gender;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "color_id", nullable = false)
+    private Color color;
+    
     private int height;
     private boolean active;
 
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    
     public int getId() {
         return id;
     }
@@ -68,19 +76,19 @@ public class User {
         this.birth = birth;
     }
 
-    public int getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
-    public int getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
