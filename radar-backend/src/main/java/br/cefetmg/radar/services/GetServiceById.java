@@ -5,12 +5,10 @@
  */
 package br.cefetmg.radar.services;
 
-import br.cefetmg.radar.dao.UserDAO;
-import br.cefetmg.radar.entity.User;
+import br.cefetmg.radar.dao.ServiceDAO;
+import br.cefetmg.radar.entity.Service;
 import br.cefetmg.radar.message.Result;
-import br.cefetmg.radar.util.cryptography.MD5;
 import com.google.gson.Gson;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -21,46 +19,45 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Rafael
+ * @author rafae_000
  */
-@WebServlet(name = "Login", urlPatterns = {"/login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "GetServiceById", urlPatterns = {"/getservice"})
+public class GetServiceById extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         Gson gson = new Gson();
 
         response.setContentType("text/json;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = request.getReader();
-        String str;
-        while( (str = br.readLine()) != null ){
-            sb.append(str);
-        }
+        PrintWriter out = response.getWriter();
         
-        try (PrintWriter out = response.getWriter()) {
-            try {
-                
-                UserDAO userDAO = new UserDAO();
-                User user = gson.fromJson(sb.toString(), User.class);
-                
-                if(userDAO.getByEmail(user.getEmail()) != null){
-                    user.setPassword(MD5.crypt(user.getPassword()));
-                    if (user.getPassword().equals(userDAO.getByEmail(user.getEmail()).getPassword())){                                                          
-                        out.println(gson.toJson(new Result(Result.OK)));
-                    } else {
-                        out.println(gson.toJson(new Result(Result.EMAIL_OR_PASSWORD_WRONG)));
-                    }
-                } else {
-                    out.println(gson.toJson(new Result(Result.EMAIL_OR_PASSWORD_WRONG)));
-                }                
-            } catch (Exception ex) {
-                out.println(gson.toJson(new Result(Result.ERRO, ex.getMessage())));
-                ex.printStackTrace();
+        try{
+            ServiceDAO serviceDAO = new ServiceDAO();
+            
+            int stateId = Integer.parseInt(request.getParameter("stateid"));
+            
+            Service service = serviceDAO.getById(stateId);
+            
+            if (service != null){
+                out.println(gson.toJson(service));
+            } else {
+                out.println(gson.toJson(new Result(Result.SERVICE_DOESNT_EXISTS)));
             }
+            
+        } catch (Exception ex) {
+            out.println(gson.toJson(new Result(Result.ERRO, ex.getMessage())));
+            ex.printStackTrace();
         }
     }
 

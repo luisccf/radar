@@ -54,8 +54,8 @@ public class CreateUser extends HttpServlet {
             if (newUser.getPassword().length() >= 4) {
                 if (newUser.getUsername().length() >= 4) {
                     if (userDAO.getByUsername(newUser.getUsername()) == null) {
-                        if(userDAO.getByEmail(newUser.getEmail()) == null){
-                            if(yearsdiff > 13){
+                        if (userDAO.getByEmail(newUser.getEmail()) == null){
+                            if (yearsdiff > 13){
                                 newUser.setPassword(MD5.crypt(newUser.getPassword()));
                                 newUser.setActive(true);
                                 

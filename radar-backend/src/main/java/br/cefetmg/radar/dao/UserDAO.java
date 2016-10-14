@@ -100,24 +100,6 @@ public class UserDAO {
         
     }
     
-    public User getByGUID(String GUID) throws ConfigurationException{
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = cb.createQuery( User.class );
-        Root<User> userRoot = criteria.from( User.class );
-        criteria.select( userRoot );
-        criteria.where( cb.equal( userRoot.get( "GUID" ), GUID ) );
-        List<User> users = entityManager.createQuery( criteria ).getResultList();
-        
-        if(users.size() == 1) {
-            return users.get(0);
-        } else if(users.size() == 0) {
-            return null;
-        } else {
-            throw new ConfigurationException(String.format("There are more then one user with the GUID '{0}'.", GUID));
-        }
-        
-    }
-    
     public void updateUser(User newUser) {
         try {
             entityManager.getTransaction().begin();
