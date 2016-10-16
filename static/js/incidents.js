@@ -146,12 +146,13 @@ var loadInfoWindow = function(incident) {
     );
     $('#info-window-body').html(rendered);
     $('#info-window').modal();
-
-
 }
 
 $(function() {
     loadTemplate();
     initMap();
-    loadMarkers(incidents);
+    setTimeout(function() {
+        $('#login-window').modal();
+        loadMarkers(incidents);
+    }, 3000);
 });

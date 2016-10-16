@@ -27,3 +27,15 @@ var getMonth = function(month) {
             return 'dezembro';
     }
 }
+
+var loadTemplate = function() {
+    $.get('navbar.html', function(template) {
+        var rendered = Mustache.render(template);
+        $('header').html(rendered);
+        $('#to-incidents').addClass('active');
+    });
+    $.get('login-window.html', function(template) {
+        var rendered = Mustache.render(template);
+        $('#content').append(rendered);
+    });
+}

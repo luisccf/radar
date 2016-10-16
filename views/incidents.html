@@ -9,19 +9,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="/static/js/mustache.min.js"></script>
-    <script>
-    function loadTemplate() {
-        $.get('navbar.html', function(template) {
-            var rendered = Mustache.render(template);
-            $('header').html(rendered);
-            $('#to-incidents').addClass('active');
-        });
-        $.get('login-window.html', function(template) {
-            var rendered = Mustache.render(template);
-            $('#content').append(rendered);
-        });
-    }
-    </script>
 </head>
 <body>
     <header></header>
