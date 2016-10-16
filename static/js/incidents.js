@@ -149,7 +149,6 @@ var loadInfoWindow = function(incident) {
 }
 
 $(function() {
-    loadTemplate();
     initMap();
     setTimeout(function() {
         $('#login-window').modal();
