@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"> 
+    <title>Radar - Ocorrências</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="mustache.min.js"></script>
+</head>
+<body onload="loadTemplate()">
+    <header></header>
+    <section id="content">
+        <div id="map" class="map"></div> 
+        <div class="modal fade" id="info-window" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="row">
+                            <div class="col-xs-12" id="info-window-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHiw6bxUMu-cjHlBCH4a4HSEeDIq3v4U4"></script>
+    <script src="utils.js"></script>
+    <script src="incidents.js"></script>
+    <script id="info-window-template" type="text/mustache">
+        <p>{{ num_victims }}</p>
+        <p>{{ num_criminals }}</p>
+        <p>{{ victims_transportation }}</p>
+        <p>{{ criminals_transportation }}</p>
+        <p>{{ violence }}</p>
+        <blockquote>
+            <p>{{ description }}</p>
+            <footer>{{ footer }}</footer>
+        </blockquote>
+        <p><strong>Objetos levados</strong></p>
+        <p>{{ objects_taken }}</p>
+    </script>
+</body>
+</html>

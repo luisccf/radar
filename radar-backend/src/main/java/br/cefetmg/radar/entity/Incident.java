@@ -29,21 +29,23 @@ public class Incident {
     @GenericGenerator(name = "increment", strategy = "increment")
     private int id;
     private Date date;
-    private int nrobbers;
+    private int num_criminals;
     private boolean violence;
-    private int companions;
-    private int codBO;
-    private int gun;
+    private int num_victims;
+    private String police_report;
+    private int armed;
     private double latitude;
     private double longitude;
+    private String description;
+    private String objects_taken;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transport_id", nullable = false)
-    private Transport transport;
+    @JoinColumn(name = "victims_transport_id", nullable = false)
+    private Transport victims_transport;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "robbertransport_id", nullable = false)
-    private Transport robbertransport;
+    @JoinColumn(name = "criminals_transport_id", nullable = false)
+    private Transport criminals_transport;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -65,12 +67,12 @@ public class Incident {
         this.date = date;
     }
 
-    public int getNrobbers() {
-        return nrobbers;
+    public int getNum_criminals() {
+        return num_criminals;
     }
 
-    public void setNrobbers(int nrobbers) {
-        this.nrobbers = nrobbers;
+    public void setNum_criminals(int num_criminals) {
+        this.num_criminals = num_criminals;
     }
 
     public boolean isViolence() {
@@ -79,46 +81,6 @@ public class Incident {
 
     public void setViolence(boolean violence) {
         this.violence = violence;
-    }
-
-    public int getCompanions() {
-        return companions;
-    }
-
-    public void setCompanions(int companions) {
-        this.companions = companions;
-    }
-
-    public int getCodBO() {
-        return codBO;
-    }
-
-    public void setCodBO(int codBO) {
-        this.codBO = codBO;
-    }
-
-    public int getGun() {
-        return gun;
-    }
-
-    public void setGun(int gun) {
-        this.gun = gun;
-    }
-
-    public Transport getTransport() {
-        return transport;
-    }
-
-    public void setTransport(Transport transport) {
-        this.transport = transport;
-    }
-
-    public Transport getRobbertransport() {
-        return robbertransport;
-    }
-
-    public void setRobbertransport(Transport robbertransport) {
-        this.robbertransport = robbertransport;
     }
 
     public User getUser() {
@@ -143,6 +105,62 @@ public class Incident {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getNum_victims() {
+        return num_victims;
+    }
+
+    public void setNum_victims(int num_victims) {
+        this.num_victims = num_victims;
+    }
+
+    public String getPolice_report() {
+        return police_report;
+    }
+
+    public void setPolice_report(String police_report) {
+        this.police_report = police_report;
+    }
+
+    public int getArmed() {
+        return armed;
+    }
+
+    public void setArmed(int armed) {
+        this.armed = armed;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getObjects_taken() {
+        return objects_taken;
+    }
+
+    public void setObjects_taken(String objects_taken) {
+        this.objects_taken = objects_taken;
+    }
+
+    public Transport getVictims_transport() {
+        return victims_transport;
+    }
+
+    public void setVictims_transport(Transport victims_transport) {
+        this.victims_transport = victims_transport;
+    }
+
+    public Transport getCriminals_transport() {
+        return criminals_transport;
+    }
+
+    public void setCriminals_transport(Transport criminals_transport) {
+        this.criminals_transport = criminals_transport;
     }
     
 }

@@ -28,7 +28,7 @@ var getMonth = function(month) {
     }
 }
 
-var loadTemplate = function() {
+function loadTemplate() {
     $.get('navbar.html', function(template) {
         var rendered = Mustache.render(template);
         $('header').html(rendered);
@@ -37,26 +37,24 @@ var loadTemplate = function() {
     $.get('login-window.html', function(template) {
         var rendered = Mustache.render(template);
         $('#content').append(rendered);
-    });
-}
-
-($(function() {
-    $('#login-window form button[name=login]').click(function() {
-        var user = {
-            'email': $('#login-window form input[name=email]').val(),
-            'password': $('#login-window form input[name=password]').val()
-        }
-        console.log(user);
-        $.ajax({
-            type: 'POST',
-            url:  '/login',
-            data: user,
-            complete: function(data) {
-                console.log(data);
-            },
-            error: function(error) {
-                console.log(error);
-            }
+        $('#login-window').on('show.bs.modal', function (e) {
+            $('#login-window button[name=login]').click(function() {
+                var user = {
+                    'email': $('#login-window input[name=email]').val(),
+                    'password': $('#login-window input[name=password]').val()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url:  '/login',
+                    data: JSON.stringify(user),
+                    complete: function(data) {
+                        console.log(data);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });  
         });
     });
-}));
+}
