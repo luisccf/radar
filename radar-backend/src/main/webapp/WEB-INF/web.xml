@@ -24,4 +24,12 @@
         <servlet-name>incidents</servlet-name>
         <url-pattern>/incidents</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>help</servlet-name>
+        <jsp-file>/html/help.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>help</servlet-name>
+        <url-pattern>/help</url-pattern>
+    </servlet-mapping>
 </web-app>

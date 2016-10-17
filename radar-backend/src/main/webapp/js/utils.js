@@ -28,11 +28,11 @@ var getMonth = function(month) {
     }
 }
 
-function loadTemplate() {
+function loadTemplate(anchor) {
     $.get('/html/navbar.html', function(template) {
         var rendered = Mustache.render(template);
         $('header').html(rendered);
-        $('#to-incidents').addClass('active');
+        $(anchor).addClass('active');
     });
     $.get('/html/login-window.html', function(template) {
         var rendered = Mustache.render(template);
