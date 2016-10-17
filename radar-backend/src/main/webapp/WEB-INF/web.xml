@@ -16,4 +16,12 @@
             30
         </session-timeout>
     </session-config>
+    <servlet>
+        <servlet-name>incidents</servlet-name>
+        <jsp-file>/html/incidents.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>incidents</servlet-name>
+        <url-pattern>/incidents</url-pattern>
+    </servlet-mapping>
 </web-app>

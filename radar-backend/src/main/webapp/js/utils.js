@@ -29,12 +29,12 @@ var getMonth = function(month) {
 }
 
 function loadTemplate() {
-    $.get('navbar.html', function(template) {
+    $.get('/html/navbar.html', function(template) {
         var rendered = Mustache.render(template);
         $('header').html(rendered);
         $('#to-incidents').addClass('active');
     });
-    $.get('login-window.html', function(template) {
+    $.get('/html/login-window.html', function(template) {
         var rendered = Mustache.render(template);
         $('#content').append(rendered);
         $('#login-window').on('show.bs.modal', function (e) {
