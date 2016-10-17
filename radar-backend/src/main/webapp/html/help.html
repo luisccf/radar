@@ -10,83 +10,64 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/mustache.min.js"></script>
 </head>
-
 <body onload="loadTemplate('#to-help')">
-    <style>
-        #coluna-1 { width:48%; float:left; }
-        #coluna-2 { width:48%; float:right; }
-        .clearfix { clear:both; }
-    </style>
     <header></header>
     <div class="container">
-        <div class="row page-header">
-            <h1>Informações Adicionais</h1>
-        </div>
-    
-            <form>
-        <div id="coluna-1">
-            <h2>Instruções</h2>
-            </br></br>
-            <p><b>Furto</b> é uma ação caracterizada pela ausência de violência ou grave ameaça contra uma pessoa. Por isso, se o criminoso ameaçou (com ou sem o uso de armas) ou agrediu a vítima para subtrair-lhe os pertences, não é possível solicitar o B.O. pela internet. Neste caso, procure a delegacia de polícia mais próxima.</p>
-            
-            </br>
-            
-            <p><b>Como agir durante um assalto? Veja dicas em:</b>
-            <a href="http://tudosobreseguranca.com.br/portal/index.php?option=com_content&task=view&id=82&Itemid=128"> Clique aqui.</a></p>         
-        </div>
-            
-        <div id="coluna-2">
-            <h2>Busca</h2>
-            </br></br>
-            <div class="form-group">
-                <label for="select1">Estado</label>
-                <select class="form-control" id="state">
-                    <option>Espírito Santo</option>
-                    <option>Minas Gerais</option>
-                    <option>Rio de Janeiro</option>
-                    <option>São Paulo</option>
-                </select>
+        <form>
+            <div class="col-md-6">
+                <h2 class="page-header">Informações adicionais</h2>
+                <p><strong>Furto</strong> é uma ação caracterizada pela ausência de violência ou grave ameaça contra uma pessoa. Por isso, se o criminoso ameaçou (com ou sem o uso de armas) ou agrediu a vítima para subtrair-lhe os pertences, não é possível solicitar o B.O. pela internet. Neste caso, procure a delegacia de polícia mais próxima.</p>      
+                <p><strong>Como agir durante um assalto?</strong>
+                <a href="http://tudosobreseguranca.com.br/portal/index.php?option=com_content&task=view&id=82&Itemid=128" target="_blank"> Clique aqui para dicas!</a></p>         
             </div>
-            
-            <div class="form-group">
-                <label for="select2">Serviço</label>
-                <select class="form-control" id="state">
-                    <option>Polícia</option>
-                    <option>SAMU</option>
-                </select>
-            </div>      
-            
-            </br>
-            
-            <fieldset class="form-group">
-            <legend>Polícia</legend>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Telefone:</label>
-                <div class="col-sm-10">
-                    <p class="form-control-static"> (YY) XXXX-XXXX </p>
+            <div class="col-md-6">
+                <h2 class="page-header">Busca</h2>
+                <div class="form-group">
+                    <label for="select1">Estado</label>
+                    <select class="form-control" id="state">
+                        <option>Espírito Santo</option>
+                        <option>Minas Gerais</option>
+                        <option>Rio de Janeiro</option>
+                        <option>São Paulo</option>
+                    </select>
                 </div>
+                <div class="form-group">
+                    <label for="select2">Serviço</label>
+                    <select class="form-control" id="state">
+                        <option>Polícia</option>
+                        <option>SAMU</option>
+                    </select>
+                </div>      
+                <fieldset class="form-group">
+                    <legend>Polícia</legend>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Telefone:</label>
+                        <div class="col-sm-10">
+                            <p> (YY) XXXX-XXXX </p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">E-mail:</label>
+                        <div class="col-sm-10">
+                            <p>
+                                <a href="mailto:email@example.com">email@example.com</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Site:</label>
+                        <div class="col-sm-10">
+                            <p>
+                                <a href="http://www.example.com" target="_blank">http://www.example.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
-            
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">E-mail:</label>
-                <div class="col-sm-10">
-                    <p class="form-control-static">email@example.com</p>
-                </div>
-            </div>
-            
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Site:</label>
-                <div class="col-sm-10">
-                    <p class="form-control-static">http://www.example.com</p>
-                </div>
-            </div>
-            </fieldset>
-            
-        </div>
-        <div class="clearfix"></div>
         </form>
     </div>
-  <script src="/js/bootstrap.min.js"></script>
+
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/utils.js"></script>
 </body>
 </html>
