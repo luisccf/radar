@@ -1,3 +1,6 @@
+CREATE SCHEMA radar;
+USE radar;
+
 CREATE TABLE `color` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -13,6 +16,30 @@ CREATE TABLE `gender` (
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `transport` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(125) NOT NULL,
+  `email` varchar(125) NOT NULL,
+  `password` varchar(125) NOT NULL,
+  `birth` date DEFAULT NULL,
+  `gender_id` int(11) DEFAULT NULL,
+  `color_id` int(11) DEFAULT NULL,
+  `height` int(11) DEFAULT NULL,
+  `active` bit(1) DEFAULT b'1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  KEY `gender_user_idx` (`gender_id`),
+  KEY `color_user_idx` (`color_id`),
+  CONSTRAINT `color_user` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `gender_user` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `incident` (
   `id` int(11) NOT NULL,
@@ -38,7 +65,6 @@ CREATE TABLE `incident` (
   CONSTRAINT `incident_user_transport` FOREIGN KEY (`victims_transport_id`) REFERENCES `transport` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 CREATE TABLE `service` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `state` varchar(125) NOT NULL,
@@ -49,29 +75,3 @@ CREATE TABLE `service` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `state_UNIQUE` (`state`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-CREATE TABLE `transport` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(125) NOT NULL,
-  `email` varchar(125) NOT NULL,
-  `password` varchar(125) NOT NULL,
-  `birth` date DEFAULT NULL,
-  `gender_id` int(11) DEFAULT NULL,
-  `color_id` int(11) DEFAULT NULL,
-  `height` int(11) DEFAULT NULL,
-  `active` bit(1) DEFAULT b'1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  KEY `gender_user_idx` (`gender_id`),
-  KEY `color_user_idx` (`color_id`),
-  CONSTRAINT `color_user` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `gender_user` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
