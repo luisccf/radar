@@ -49,6 +49,13 @@ public class Gender {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
+    }
     
 }

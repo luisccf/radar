@@ -6,9 +6,11 @@
 package br.cefetmg.radar.dao;
 
 import br.cefetmg.radar.entity.Incident;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -35,5 +37,13 @@ public class IncidentDAO {
         } finally {
             entityManager.close();  //fecha o entityManager
         }
+    }
+    
+    public List GetIncidents(){
+        
+        Query query = entityManager.createQuery("FROM Incident i");
+        List<Incident> incidents = query.getResultList();  
+        
+        return incidents;
     }
 }

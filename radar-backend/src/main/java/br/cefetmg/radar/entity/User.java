@@ -111,5 +111,13 @@ public class User {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public Collection<Incident> getIncidents() {
+        return incidents;
+    }
+
+    public void setIncidents(Collection<Incident> incidents) {
+        this.incidents = incidents;
+    }
     
 }
