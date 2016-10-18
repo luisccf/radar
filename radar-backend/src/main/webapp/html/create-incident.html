@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ewert|Poppins">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/incidents.css">
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/mustache.min.js"></script>
@@ -15,23 +16,23 @@
     <section id="content">
         <div class="container">
             <h2 class="page-header">Registro de ocorrência</h2>
-            <form method="post" role="form" action="/incidents">
+            <form method="post" role="form">
+                <input type="hidden" name="lat">
+                <input type="hidden" name="lng">
                 <div class="col-md-6">
-                    <div class="form-group required">
-                        <label for="location" class="control-label">Local</label>
-                        <input class="form-control" type="text" name="location" placeholder="Rua Sacadura Cabral - Vila Oeste, Belo Horizonte - MG" required>
-                    </div>
+                    <input id="pac-input" class="controls" type="text" placeholder="Local do crime" required>
+                    <div id="map"></div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group required">
                                 <label for="date" class="control-label">Data</label>
-                                <input class="form-control" type="date" name="date">
+                                <input value="2016-05-19" class="form-control" type="date" name="date">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group required">
                                 <label for="time" class="control-label">Horário</label>
-                                <input class="form-control" type="time" name="time">
+                                <input value="12:00" class="form-control" type="time" name="time">
                             </div>
                         </div>
                     </div>
@@ -40,10 +41,7 @@
                             <div class="form-group">
                                 <label for="victims_transport" class="control-label">Seu transporte</label>
                                 <select class="form-control" name="victims_transport">
-                                    <option>A pé</option>
-                                    <option>Carro</option>
-                                    <option>Metrô</option>
-                                    <option>Ônibus</option>
+                                    <option selected>Selecione uma opção</option>
                                 </select>
                             </div>
                         </div>
@@ -51,10 +49,7 @@
                             <div class="form-group">
                                 <label for="criminals_transport" class="control-label">Transporte dos assaltantes</label>
                                 <select class="form-control" name="criminals_transport">
-                                    <option>A pé</option>
-                                    <option>Carro</option>
-                                    <option>Metrô</option>
-                                    <option>Ônibus</option>
+                                    <option selected>Selecione uma opção</option>
                                 </select>
                             </div>
                         </div>
@@ -82,13 +77,13 @@
                             <div class="form-group">
                                 <label for="armed" class="control-label">Criminoso:</label>
                                 <div class="radio">
-                                    <label><input type="radio" name="armed">Com arma de fogo</label>
+                                    <label><input value="2" type="radio" name="armed">Com arma de fogo</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="armed">Com arma branca</label>
+                                    <label><input value="1" type="radio" name="armed">Com arma branca</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="armed">Desarmado</label>
+                                    <label><input value="0" type="radio" name="armed">Desarmado</label>
                                 </div>
                             </div>
                         </div>
@@ -96,10 +91,10 @@
                             <div class="form-group">
                                 <label for="violence" class="control-label">Houve violência?</label>
                                 <div class="radio">
-                                    <label><input type="radio" name="violence">Sim</label>
+                                    <label><input value="true" type="radio" name="violence">Sim</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input type="radio" name="violence">Não</label>
+                                    <label><input value="false" type="radio" name="violence">Não</label>
                                 </div>
                             </div>
                         </div>
@@ -110,15 +105,14 @@
                     </div>
                     <div class="form-group">
                         <label for="objects_taken" class="control-label">O que foi roubado?</label>
-                        <textarea class="form-control" name="objects_taken" id="objects_taken"></textarea>
+                        <input class="form-control" name="objects_taken" id="objects_taken">
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
             </form>
         </div>
     </section>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHiw6bxUMu-cjHlBCH4a4HSEeDIq3v4U4"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHiw6bxUMu-cjHlBCH4a4HSEeDIq3v4U4&libraries=places&callback=initAutocomplete" async defer></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/utils.js"></script>
     <script src="/js/create-incident.js"></script>
