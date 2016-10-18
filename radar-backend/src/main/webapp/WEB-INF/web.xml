@@ -48,4 +48,10 @@
         <servlet-name>createIncident</servlet-name>
         <url-pattern>/incidents/create</url-pattern>
     </servlet-mapping>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.html</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>
