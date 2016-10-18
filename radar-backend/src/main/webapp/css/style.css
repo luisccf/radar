@@ -15,28 +15,6 @@
 blockquote p {
     font-size: 13px;
 }
-.block-right {
-  float: right;
-  margin-right: 3%;
-}
-.block-one-third {
-  display: inline; /*Bug da margem dupla para floats no IE*/
-  float: left;
-  width: 30%;
-}
-.block-two-third {
-  float: left;
-  width: 30%;
-}
-.button-right {
-  float: right;
-}
-#header-registro-ocorrencia {
-  font-size: 40px;
-  height: 12%;
-  margin-top: 3%;
-  text-align: center;
-}
 nav {
     opacity: 0.95;
     z-index: 1;
@@ -62,4 +40,8 @@ a[data-toggle=modal] {
 }
 .modal .modal-footer a {
     font-size: 12px;
+}
+.form-group.required label:after {
+  content: '*';
+  color: red;
 }

@@ -40,4 +40,12 @@
         <servlet-name>signup</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>createIncident</servlet-name>
+        <jsp-file>/html/create-incident.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createIncident</servlet-name>
+        <url-pattern>/incidents/create</url-pattern>
+    </servlet-mapping>
 </web-app>

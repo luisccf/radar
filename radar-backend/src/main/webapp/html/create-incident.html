@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Radar - Registrar ocorrência</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ewert|Poppins">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/mustache.min.js"></script>
+</head>
+<body onload="loadTemplate('#to-create-incidents')">
+    <header></header>
+    <section id="content">
+        <div class="container">
+            <h2 class="page-header">Registro de ocorrência</h2>
+            <form method="post" role="form" action="/incidents">
+                <div class="col-md-6">
+                    <div class="form-group required">
+                        <label for="location" class="control-label">Local</label>
+                        <input class="form-control" type="text" name="location" placeholder="Rua Sacadura Cabral - Vila Oeste, Belo Horizonte - MG" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group required">
+                                <label for="date" class="control-label">Data</label>
+                                <input class="form-control" type="date" name="date">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required">
+                                <label for="time" class="control-label">Horário</label>
+                                <input class="form-control" type="time" name="time">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="victims_transport" class="control-label">Seu transporte</label>
+                                <select class="form-control" name="victims_transport">
+                                    <option>A pé</option>
+                                    <option>Carro</option>
+                                    <option>Metrô</option>
+                                    <option>Ônibus</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="criminals_transport" class="control-label">Transporte dos assaltantes</label>
+                                <select class="form-control" name="criminals_transport">
+                                    <option>A pé</option>
+                                    <option>Carro</option>
+                                    <option>Metrô</option>
+                                    <option>Ônibus</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="num_victims" class="control-label">Pessoas com você</label>
+                                <input class="form-control" type="number" name="num_victims" value="1" min="1">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="num_criminals" class="control-label">Número de assaltantes</label>
+                                <input class="form-control" type="number" name="num_criminals" value="1" min="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="control-label">Descrição</label>
+                        <textarea class="form-control" type="text" name="description"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="armed" class="control-label">Criminoso:</label>
+                                <div class="radio">
+                                    <label><input type="radio" name="armed">Com arma de fogo</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="armed">Com arma branca</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="armed">Desarmado</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="violence" class="control-label">Houve violência?</label>
+                                <div class="radio">
+                                    <label><input type="radio" name="violence">Sim</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="violence">Não</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="police_report" class="control-label">Código do BO</label>
+                        <input class="form-control" type="text" name="police_report" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="objects_taken" class="control-label">O que foi roubado?</label>
+                        <textarea class="form-control" name="objects_taken" id="objects_taken"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHiw6bxUMu-cjHlBCH4a4HSEeDIq3v4U4"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/create-incident.js"></script>
+</body>
+</html>
