@@ -68,18 +68,23 @@ public class CreateUser extends HttpServlet {
                                 out.println(gson.toJson(new Result(Result.OK)));
                             } else {
                                 out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
+                                response.setStatus(400);
                             }
                         } else {
                             out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
+                            response.setStatus(400);
                         }                       
                     } else {
                         out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
+                        response.setStatus(400);
                     }
                 } else {
                     out.println(gson.toJson(new Result(Result.SHORT_USERNAME)));
+                    response.setStatus(400);
                 }
             } else {
                 out.println(gson.toJson(new Result(Result.SHORT_PASSWORD)));
+                response.setStatus(400);
             }
         } catch (Exception ex) {
             out.println(gson.toJson(new Result(Result.ERRO, ex.getMessage())));

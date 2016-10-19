@@ -66,6 +66,7 @@ public class CreateIncident extends HttpServlet {
                 out.println(gson.toJson(new Result(Result.OK)));
             } else {
                 out.println(gson.toJson(new Result(Result.INVALID_DATE)));
+                response.setStatus(400);
             }
             
         } catch (Exception ex) {

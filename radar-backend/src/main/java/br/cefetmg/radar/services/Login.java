@@ -53,9 +53,11 @@ public class Login extends HttpServlet {
                         out.println(gson.toJson(new Result(Result.OK)));
                     } else {
                         out.println(gson.toJson(new Result(Result.EMAIL_OR_PASSWORD_WRONG)));
+                        response.setStatus(404);
                     }
                 } else {
                     out.println(gson.toJson(new Result(Result.EMAIL_OR_PASSWORD_WRONG)));
+                    response.setStatus(404);
                 }                
             } catch (Exception ex) {
                 out.println(gson.toJson(new Result(Result.ERRO, ex.getMessage())));
