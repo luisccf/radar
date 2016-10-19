@@ -58,6 +58,7 @@ public class CreateUser extends HttpServlet {
                             if (yearsdiff > 13){
                                 newUser.setPassword(MD5.crypt(newUser.getPassword()));
                                 newUser.setActive(true);
+                                newUser.setTries(0);
                                 
                                 if(newUser.getHeight()== 0){
                                     newUser.setHeight(-1);

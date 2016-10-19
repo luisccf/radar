@@ -24,6 +24,7 @@ public class User {
     private String password;
     private String email;
     private Date birth;
+    private int tries;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gender_id", nullable = false)
@@ -118,6 +119,14 @@ public class User {
 
     public void setIncidents(Collection<Incident> incidents) {
         this.incidents = incidents;
+    }
+
+    public int getTries() {
+        return tries;
+    }
+
+    public void setTries(int tries) {
+        this.tries = tries;
     }
     
 }

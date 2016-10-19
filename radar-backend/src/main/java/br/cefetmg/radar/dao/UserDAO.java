@@ -111,6 +111,7 @@ public class UserDAO {
                 userPersisted.setBirth(newUser.getBirth());
                 userPersisted.setActive(newUser.getActive());
                 userPersisted.setColor(newUser.getColor());
+                userPersisted.setTries(newUser.getTries());
 
                 if(newUser.getHeight() == 0){
                     userPersisted.setHeight(-1);
