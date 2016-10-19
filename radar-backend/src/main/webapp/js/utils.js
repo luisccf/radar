@@ -38,7 +38,7 @@ function loadTemplate(anchor) {
         var rendered = Mustache.render(template);
         $('#content').append(rendered);
         $('#login-window').on('show.bs.modal', function (e) {
-            $('#login-window button[name=login]').click(function() {
+            $('#login-form').submit(function() {
                 var user = {
                     'email': $('#login-window input[name=email]').val(),
                     'password': $('#login-window input[name=password]').val()
@@ -48,12 +48,20 @@ function loadTemplate(anchor) {
                     url:  '/login',
                     data: JSON.stringify(user),
                     complete: function(data) {
-                        console.log(data);
+                        if (data.responseJSON.result == "EMAIL_OR_PASSWORD_WRONG") {
+                            if ($('#login-form p.login-error').is(':hidden')) {
+                                $('#login-form p.login-error').fadeToggle();
+                            }
+                        } else {
+                            window.location.href = '/incidents';
+                        }
                     },
                     error: function(error) {
-                        console.log(error);
+                        if ($('#login-form p.login-error').is(':hidden'))
+                            $('#login-form p.login-error').fadeToggle();
                     }
                 });
+                return false;
             });  
         });
     });
