@@ -91,11 +91,16 @@ var createInfoWindow = function(incident, marker) {
         + date.getDate()
         + ' de ' + getMonth(date.getMonth())
         + ' de ' + date.getFullYear();
+    var blockquote = $('');
+    if (description) {
+        blockquote = $('<blockquote></blockquote>');
+        $('<p>' + description + '</p>').appendTo(blockquote);
+        $('<footer>' + footer + '</footer>').appendTo(blockquote);
+    }
     var template = $('#info-window-template').html();
     var location = {lat: marker.position.lat(), lng: marker.position.lng()};
     var formatted_address = [location.lat, location.lng].join(', ');
     var geocoder = new google.maps.Geocoder;
-    exec = true;
     geocoder.geocode({'location': location}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {
@@ -110,9 +115,8 @@ var createInfoWindow = function(incident, marker) {
                         criminals_transport: criminals_transport ? criminals_transport : '',
                         victims_transport: victims_transport ? victims_transport : '',
                         violence: violence ? violence : '',
-                        description: description ? description : '',
+                        blockquote: blockquote.prop('outerHTML'),
                         objects_taken: objects_taken ? objects_taken : '',
-                        footer: footer
                     }
                 );
                 $('#info-window-body').html(rendered);

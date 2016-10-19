@@ -80,8 +80,8 @@ $(function() {
 
     $('form').submit(function() {
         var incident = {
-            'longitude': $('input[name=lat]').val(),
-            'latitude': $('input[name=lng]').val(),
+            'latitude': $('input[name=lat]').val(),
+            'longitude': $('input[name=lng]').val(),
             'date': $('input[name=date]').val(),
             'description': $('input[name=description]').val(),
             'num_criminals': $('input[name=num_criminals]').val(),
@@ -92,14 +92,14 @@ $(function() {
             'num_victims': $('input[name=num_victims]').val(),
             'police_report': $('input[name=police_report]').val(),
             'objects_taken': $('input[name=objects_taken]').val(),
-            'user': {'id':1}
+            'user': {'id': 1}
         };
         $.ajax({
             type: 'POST',
             url: '/createincident',
             data: JSON.stringify(incident),
             success: function(d) {
-                console.log(d);
+                window.location.href = '/incidents';
             },
             error: function(e) {
                 console.log(e);
