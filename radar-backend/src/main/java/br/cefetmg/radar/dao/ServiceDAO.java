@@ -1,9 +1,11 @@
 package br.cefetmg.radar.dao;
 
 import br.cefetmg.radar.entity.Service;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -33,5 +35,13 @@ public class ServiceDAO {
         }
         
         return service;
+    }
+    
+    public List GetServices(){
+        
+        Query query = entityManager.createQuery("FROM Service s");
+        List<Service> services = query.getResultList();  
+        
+        return services;
     }
 }
