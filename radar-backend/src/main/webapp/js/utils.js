@@ -47,16 +47,15 @@ function loadTemplate(anchor) {
                     type: 'POST',
                     url:  '/login',
                     data: JSON.stringify(user),
-                    complete: function(data) {
-                        if (data.responseJSON.result == "EMAIL_OR_PASSWORD_WRONG") {
-                            if ($('#login-form p.login-error').is(':hidden')) {
-                                $('#login-form p.login-error').fadeToggle();
-                            }
-                        } else {
-                            window.location.href = '/incidents';
-                        }
+                    success: function(data) {
+                        window.location.href = '/incidents';
                     },
                     error: function(error) {
+                        if (error.status == 400) {
+                            $('#login-error').html('Excesso de tentativas atingido.');
+                        } else if (error.status == 404) {
+                            $('#login-error').html('E-mail ou senha incorretos.');
+                        }
                         if ($('#login-form p.login-error').is(':hidden'))
                             $('#login-form p.login-error').fadeToggle();
                     }
