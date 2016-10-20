@@ -35,6 +35,10 @@ var getIncidents = function() {
                 markers[item.id] = marker
                 infowindows[item.id] = createInfowindow(item, marker);
                 marker.addListener('click', function() {
+                    $.each(incidents, function(i) {
+                        if (incidents[i] != undefined)
+                            infowindows[incidents[i].id].close();
+                    })
                     infowindows[item.id].open(map, marker);
                 });
             });
@@ -91,18 +95,10 @@ var createInfowindow = function(incident, marker) {
     }
     // Generates infowindow content using a template
     var template = $('#info-window-template').html();
-    // var location = {lat: marker.position.lat(), lng: marker.position.lng()};
-    // var formatted_address = [location.lat, location.lng].join(', ');
-    // var geocoder = new google.maps.Geocoder;
-    // geocoder.geocode({'location': location}, function(results, status) {
-    //     if (status === google.maps.GeocoderStatus.OK) {
-    //         if (results[1]) {
-    // formatted_address = results[1].formatted_address;
     Mustache.parse(template);
     var rendered = Mustache.render(
         template, 
         {
-            // formatted_address: formatted_address,
             num_criminals: num_criminals ? num_criminals : '',
             num_victims: num_victims ? num_victims : '',
             criminals_transport: criminals_transport ? criminals_transport : '',
@@ -116,6 +112,4 @@ var createInfowindow = function(incident, marker) {
     return new google.maps.InfoWindow({
         content: $('#info-window-body').html()
     });
-        //     } else console.log(status);
-        // } else console.log(status);
 }
