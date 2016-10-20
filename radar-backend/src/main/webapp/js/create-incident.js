@@ -67,6 +67,10 @@ var loadOptions = function(select, items) {
 
 $(function() {
 
+    $('input[name=date]').prop('max', function(){
+        return new Date().toJSON().split('T')[0];
+    });
+
     $.ajax({
         url: '/gettransports',
         success: function(transports) {
@@ -83,7 +87,7 @@ $(function() {
             'latitude': $('input[name=lat]').val(),
             'longitude': $('input[name=lng]').val(),
             'date': $('input[name=date]').val(),
-            'description': $('input[name=description]').val(),
+            'description': $('textarea[name=description]').val(),
             'num_criminals': $('input[name=num_criminals]').val(),
             'armed': $('input[name=armed]:checked').val(),
             'victims_transport': {'id': $('select[name=victims_transport]').val()},
