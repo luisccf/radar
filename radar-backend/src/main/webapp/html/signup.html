@@ -18,27 +18,32 @@
                 <h2>Cadastro</h2>
                 <a data-toggle="modal" data-target="#login-window">Ou entre se já tiver uma conta!<span class="sr-only">(current)</span></a>
             </div>
-            <form method="post" role="form">
+            <form id="signup-form" method="post" role="form">
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="form-group">
                     <label class="control-label">Usuário</label>
+                    <p name="form-error" class="form-error"></p>
                     <input class="form-control" type="text" name="username" required>
                     </div>
                     <div class="form-group">
                         <label class="control-label">E-mail</label>
+                        <p name="form-error" class="form-error"></p>
                         <input class="form-control" type="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Senha</label>
+                        <p name="form-error" class="form-error"></p>
                         <input class="form-control" type="password" name="password" required>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Confirmar senha</label>
+                        <p name="form-error" class="form-error"></p>
                         <input class="form-control" type="password" name="check-password" required>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Data de nascimento</label>
-                        <input class="form-control" type="date" name="birth-date" required>
+                        <p name="form-error" class="form-error"></p>
+                        <input class="form-control" type="date" name="birth" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Cadastrar-se</button>
                 </div>
@@ -49,5 +54,6 @@
 
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/utils.js"></script>
+    <script src="/js/signup.js"></script>
 </body>
 </html>

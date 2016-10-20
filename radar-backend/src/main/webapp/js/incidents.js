@@ -32,7 +32,7 @@ var getIncidents = function() {
             $.each(items, function(i, item) {
                 incidents[item.id] = item;
                 var marker = createMarker(item);
-                markers[item.id] = marker
+                markers[item.id] = marker;
                 infowindows[item.id] = createInfowindow(item, marker);
                 marker.addListener('click', function() {
                     $.each(incidents, function(i) {
@@ -82,7 +82,7 @@ var createInfowindow = function(incident, marker) {
         num_victims += incident.num_victims + ' vítima';
         victims_transport = 'A vítima estava ' + incident.victims_transport.name;
     }
-    var date = new Date(incident.date)
+    var date = new Date(incident.date);
     var footer = incident.user.username + ', ' 
         + date.getDate()
         + ' de ' + getMonth(date.getMonth())

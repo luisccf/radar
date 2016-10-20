@@ -51,41 +51,36 @@ public class CreateUser extends HttpServlet {
             
             long yearsdiff = Math.round((currentDate.getTime() - newUser.getBirth().getTime()) / (1000l*60*60*24*365));
                 
-            if (newUser.getPassword().length() >= 4) {
-                if (newUser.getUsername().length() >= 4) {
-                    if (userDAO.getByUsername(newUser.getUsername()) == null) {
-                        if (userDAO.getByEmail(newUser.getEmail()) == null){
-                            if (yearsdiff > 13){
-                                newUser.setPassword(MD5.crypt(newUser.getPassword()));
-                                newUser.setActive(true);
-                                newUser.setTries(0);
-                                
-                                if(newUser.getHeight()== 0){
-                                    newUser.setHeight(-1);
-                                }
-
-                                userDAO.createUser(newUser);
-
-                                out.println(gson.toJson(new Result(Result.OK)));
-                            } else {
-                                out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
-                                response.setStatus(400);
+            if (newUser.getUsername().length() >= 4) {
+                if (userDAO.getByUsername(newUser.getUsername()) == null) {
+                    if (userDAO.getByEmail(newUser.getEmail()) == null){
+                        if (yearsdiff > 13){
+                            newUser.setPassword(MD5.crypt(newUser.getPassword()));
+                            newUser.setActive(true);
+                            newUser.setTries(0);
+                            
+                            if(newUser.getHeight()== 0){
+                                newUser.setHeight(-1);
                             }
+
+                            userDAO.createUser(newUser);
+
+                            out.println(gson.toJson(new Result(Result.OK)));
                         } else {
-                            out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
-                            response.setStatus(400);
-                        }                       
+                            out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
+                            response.setStatus(489);
+                        }
                     } else {
-                        out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
-                        response.setStatus(400);
-                    }
+                        out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
+                        response.setStatus(490);
+                    }                       
                 } else {
-                    out.println(gson.toJson(new Result(Result.SHORT_USERNAME)));
-                    response.setStatus(400);
+                    out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
+                    response.setStatus(491);
                 }
             } else {
-                out.println(gson.toJson(new Result(Result.SHORT_PASSWORD)));
-                response.setStatus(400);
+                out.println(gson.toJson(new Result(Result.SHORT_USERNAME)));
+                response.setStatus(492);
             }
         } catch (Exception ex) {
             out.println(gson.toJson(new Result(Result.ERRO, ex.getMessage())));

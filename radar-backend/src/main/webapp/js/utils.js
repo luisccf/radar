@@ -52,12 +52,12 @@ function loadTemplate(anchor) {
                     },
                     error: function(error) {
                         if (error.status == 400) {
-                            $('#login-error').html('Excesso de tentativas atingido.');
+                            $('#form-error').html('Excesso de tentativas atingido.');
                         } else if (error.status == 404) {
-                            $('#login-error').html('E-mail ou senha incorretos.');
+                            $('#form-error').html('E-mail ou senha incorretos.');
                         }
-                        if ($('#login-form p.login-error').is(':hidden'))
-                            $('#login-form p.login-error').fadeToggle();
+                        if ($('#login-form p[name=form-error]').is(':hidden'))
+                            $('#login-form p[name=form-error]').fadeToggle();
                     }
                 });
                 return false;

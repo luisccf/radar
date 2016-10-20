@@ -45,7 +45,7 @@ a[data-toggle=modal] {
   content: '*';
   color: red;
 }
-.login-error {
+.form-error {
   display: none;
   color: #ca0020;
 }
