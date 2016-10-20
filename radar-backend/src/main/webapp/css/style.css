@@ -49,3 +49,6 @@ a[data-toggle=modal] {
   display: none;
   color: #ca0020;
 }
+.btn[type=submit] {
+  margin-bottom: 20px;
+}
