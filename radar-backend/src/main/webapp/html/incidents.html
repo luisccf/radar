@@ -4,20 +4,21 @@
     <meta charset="utf-8"> 
     <title>Radar - Ocorrências</title>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ewert|Poppins">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/mustache.min.js"></script>
 </head>
-<body onload="loadTemplate()">
-    <header></header>
+<body onload="loadTemplate('#to-incidents')">
     <section id="content">
+        <input id="pac-input" class="controls" type="text">
         <div id="map" class="map"></div> 
         <div id="info-window-body"></div>
     </section>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHiw6bxUMu-cjHlBCH4a4HSEeDIq3v4U4&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHiw6bxUMu-cjHlBCH4a4HSEeDIq3v4U4&libraries=places&callback=initMap" async defer></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/utils.js"></script>
     <script src="/js/incidents.js"></script>
