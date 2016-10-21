@@ -56,15 +56,6 @@ function initAutocomplete() {
     });
 }
 
-var loadOptions = function(select, items) {
-    $.each(items, function (i, item) {
-        select.append($('<option>', { 
-            value: item.id,
-            text : item.name 
-        }));
-    });
-}
-
 $(function() {
 
     $('input[name=date]').prop('max', function(){

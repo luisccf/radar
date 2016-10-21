@@ -8,7 +8,37 @@ var initMap = function() {
         center: {lat: 34.0093, lng: -118.4974},
         zoom: 8,
         maxZoom: 12,
-        streetViewControl: false
+        streetViewControl: false,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+            position: google.maps.ControlPosition.BOTTOM_CENTER
+        }
+    });
+
+    // Adds search bar
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+    });
+    searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+        if (places.length == 0) {
+          return;
+        }
+        var bounds = new google.maps.LatLngBounds();
+        var place = places[0];
+        if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+        } else {
+            bounds.extend(place.geometry.location);
+        }
+        map.fitBounds(bounds);
+        $('input[name=location]').val(place.formatted_address);
+        $('input[name=lat]').val(place.geometry.location.lat());
+        $('input[name=lng]').val(place.geometry.location.lng());
     });
 
     // Loads map on user's current location
