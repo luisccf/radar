@@ -6,7 +6,7 @@ var map,
 var initMap = function() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 34.0093, lng: -118.4974},
-        zoom: 8,
+        zoom: 5,
         maxZoom: 12,
         streetViewControl: false,
         mapTypeControlOptions: {
@@ -14,6 +14,12 @@ var initMap = function() {
             position: google.maps.ControlPosition.BOTTOM_CENTER
         }
     });
+
+    // Adds filter button
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map);
+    centerControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(centerControlDiv);
 
     // Adds search bar
     var input = document.getElementById('pac-input');
@@ -42,15 +48,15 @@ var initMap = function() {
     });
 
     // Loads map on user's current location
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            map.setCenter(pos);
-        });
-    }
+    // if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(function(position) {
+    //         var pos = {
+    //             lat: position.coords.latitude,
+    //             lng: position.coords.longitude
+    //         };
+    //         map.setCenter(pos);
+    //     });
+    // }
     getIncidents();
 }
 
@@ -65,6 +71,7 @@ var getIncidents = function() {
                 markers[item.id] = marker;
                 infowindows[item.id] = createInfowindow(item, marker);
                 marker.addListener('click', function() {
+                    // Closes opened infowindow
                     $.each(incidents, function(i) {
                         if (incidents[i] != undefined)
                             infowindows[incidents[i].id].close();
@@ -143,3 +150,67 @@ var createInfowindow = function(incident, marker) {
         content: $('#info-window-body').html()
     });
 }
+
+function CenterControl(controlDiv, map) {
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = '#fff';
+  controlUI.style.border = '2px solid #fff';
+  controlUI.style.borderRadius = '3px';
+  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.marginBottom = '22px';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Clique para filtrar ocorrências';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.color = 'rgb(25,25,25)';
+  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlText.style.fontSize = '16px';
+  controlText.style.lineHeight = '38px';
+  controlText.style.paddingLeft = '5px';
+  controlText.style.paddingRight = '5px';
+  controlText.innerHTML = 'Filtrar ocorrências';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  $(controlUI)
+    .attr('data-toggle', 'modal')
+    .attr('data-target', '#filter-window');
+  controlUI.addEventListener('click', function() {
+  });
+
+}
+
+$(function() {
+    $.ajax({
+        url: '/getgenders',
+        success: function(genders) {
+            loadOptions($('select[name=gender]'), genders);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+    $('#filter-btn').click(function() {
+        var period = $('select[name=period]');
+        if (period.val()) {
+            var min = period.val().split(',')[0],
+                max = period.val().split(',')[1];
+            $.each(incidents, function(i, incident) {
+                if (incident != undefined) {
+                    var date = new Date(incident.date);
+
+                    if ((date.getHours() >= min && date.getHours() <= max) == false) {
+                        markers[incident.id].setVisible(false);
+                    }
+                }
+            });
+        }
+        $('#filter-window').modal('hide');
+        return false;
+    });
+});

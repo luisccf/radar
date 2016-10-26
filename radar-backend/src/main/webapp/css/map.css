@@ -4,6 +4,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: -1;
 }
 .form-map {
         min-height: 400px;
@@ -47,4 +48,17 @@
 }
 .offset-pac-input {
   margin-top: 60px;
+}
+.filter-panel {
+  margin-left: 12px;
+  margin-top: 50px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff;
+  width: 300px;
+  padding: 15px;
 }

@@ -74,10 +74,11 @@ $(function() {
     });
 
     $('form').submit(function() {
+        var date = new Date($('input[name=date]').val() + ' ' + $('input[name=time]').val());
         var incident = {
             'latitude': $('input[name=lat]').val(),
             'longitude': $('input[name=lng]').val(),
-            'date': $('input[name=date]').val(),
+            'date': date,
             'description': $('textarea[name=description]').val(),
             'num_criminals': $('input[name=num_criminals]').val(),
             'armed': $('input[name=armed]:checked').val(),
@@ -94,7 +95,8 @@ $(function() {
             url: '/createincident',
             data: JSON.stringify(incident),
             success: function(d) {
-                window.location.href = '/incidents';
+                console.log(d);
+                //window.location.href = '/incidents';
             },
             error: function(e) {
                 console.log(e);

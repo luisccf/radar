@@ -15,9 +15,40 @@
 <body onload="loadTemplate('#to-incidents')">
     <header></header>
     <section id="content">
-        <input id="pac-input" class="controls offset-pac-input" type="text">
+        <input id="pac-input" class="controls offset-pac-input" type="text" placeholder="Procure por um local">
         <div id="map" class="full-screen-map"></div> 
-        <div id="info-window-body"></div>
+        <div id="info-window-body" class="hidden"></div>
+         <div class="modal fade" id="filter-window" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>Filtrar ocorrências</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">Horário do assalto</label>
+                    <p name="form-error" class="form-error"></p>
+                    <select class="form-control" name="period">
+                        <option value="0" selected>Selecione uma opção</option>
+                        <option value="6,11">Manhã</option>
+                        <option value="12,17">Tarde</option>
+                        <option value="18,0">Noite</option>
+                        <option value="1,5">Madrugada</option>
+                    </select>
+                </div> 
+                <div class="form-group">
+                    <label class="control-label">Gênero da vítima</label>
+                    <p name="form-error" class="form-error"></p>
+                    <select class="form-control" name="gender">
+                        <option value="0" selected>Selecione uma opção</option>
+                    </select>
+                </div>    
+                <button id="filter-btn" class="btn btn-primary">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
     </section>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHiw6bxUMu-cjHlBCH4a4HSEeDIq3v4U4&libraries=places&callback=initMap" async defer></script>
