@@ -1,8 +1,12 @@
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 var loadOptions = function(select, items) {
     $.each(items, function (i, item) {
         select.append($('<option>', { 
             value: item.id,
-            text : item.name 
+            text : item.name.capitalize()
         }));
     });
 }
@@ -73,4 +77,5 @@ function loadTemplate(anchor) {
             });  
         });
     });
+
 }
