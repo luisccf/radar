@@ -62,6 +62,7 @@ public class CreateIncident extends HttpServlet {
             long secondsdiff = Math.round((currentDate.getTime() - newIncident.getDate().getTime()) / (1000l));    
             
             if(secondsdiff >= 0){ //se a data inserida for válida, adiciona a ocorrência no banco
+                newIncident.getDate().setHours(newIncident.getDate().getHours()+3);
                 incidentDAO.createIncident(newIncident);
                 out.println(gson.toJson(new Result(Result.OK)));
             } else {

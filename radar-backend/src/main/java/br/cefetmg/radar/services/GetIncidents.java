@@ -56,14 +56,14 @@ public class GetIncidents extends HttpServlet {
             for(int i = 0; i < list.size(); i++){
                 if(list.get(i).getUser() != null){
                     list.get(i).getUser().setIncidents(null);
-                }
-                
-                if(list.get(i).getUser().getColor() != null){
-                    list.get(i).getUser().getColor().setUsers(null);
-                }
-                
-                if(list.get(i).getUser().getGender() != null){
-                    list.get(i).getUser().getGender().setUsers(null);
+                    
+                    if(list.get(i).getUser().getColor() != null){
+                        list.get(i).getUser().getColor().setUsers(null);
+                    }
+
+                    if(list.get(i).getUser().getGender() != null){
+                        list.get(i).getUser().getGender().setUsers(null);
+                    }   
                 }
             }
 
