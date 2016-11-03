@@ -38,6 +38,7 @@ public class Incident {
     private double longitude;
     private String description;
     private String objects_taken;
+    private int reliability;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "victims_transport_id", nullable = false)
@@ -161,6 +162,14 @@ public class Incident {
 
     public void setCriminals_transport(Transport criminals_transport) {
         this.criminals_transport = criminals_transport;
+    }
+
+    public int getReliability() {
+        return reliability;
+    }
+
+    public void setReliability(int reliability) {
+        this.reliability = reliability;
     }
     
 }

@@ -56,6 +56,14 @@ public class CreateIncident extends HttpServlet {
             IncidentDAO incidentDAO = new IncidentDAO();
 
             Incident newIncident = gson.fromJson(sb.toString(), Incident.class);
+            
+            if(newIncident.getArmed() > 0) newIncident.setReliability(newIncident.getReliability()+1);
+            if(newIncident.getCriminals_transport() != null) newIncident.setReliability(newIncident.getReliability()+1);
+            if(newIncident.getDescription() != null) newIncident.setReliability(newIncident.getReliability()+1);
+            if(newIncident.getNum_criminals() > 0) newIncident.setReliability(newIncident.getReliability()+1);
+            if(newIncident.getNum_victims() > 0) newIncident.setReliability(newIncident.getReliability()+1);
+            if(newIncident.getObjects_taken() != null) newIncident.setReliability(newIncident.getReliability()+1);
+            if(newIncident.getPolice_report()!= null) newIncident.setReliability(newIncident.getReliability()+1);
 
             Date currentDate = new Date();
             
