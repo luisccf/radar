@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.cefetmg.radar.services;
 
 import br.cefetmg.radar.dao.IncidentDAO;
@@ -19,22 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author rafae_000
- */
+
 @WebServlet(name = "CreateIncident", urlPatterns = {"/createincident"})
 public class CreateIncident extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -79,8 +63,14 @@ public class CreateIncident extends HttpServlet {
             }
             
         } catch (Exception ex) {
-            out.println(gson.toJson(new Result(Result.ERRO, ex.getMessage())));
-            ex.printStackTrace();
+           StringBuilder error = new StringBuilder();
+        
+            for (StackTraceElement element : ex.getStackTrace()) {
+                error.append(element.toString());
+                error.append("\n");    
+            }
+            out.println(gson.toJson(new Result(Result.ERRO, error.toString())));
+            response.setStatus(500);
         }
         
         out.close();

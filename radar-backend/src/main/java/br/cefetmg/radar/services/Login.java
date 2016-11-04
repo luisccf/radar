@@ -68,8 +68,14 @@ public class Login extends HttpServlet {
                     response.setStatus(404);
                 }                
             } catch (Exception ex) {
-                out.println(gson.toJson(new Result(Result.ERRO, ex.getMessage())));
-                ex.printStackTrace();
+                StringBuilder error = new StringBuilder();
+        
+                for (StackTraceElement element : ex.getStackTrace()) {
+                    error.append(element.toString());
+                    error.append("\n");    
+                }
+                out.println(gson.toJson(new Result(Result.ERRO, error.toString())));
+                response.setStatus(500);
             }
         }
     }

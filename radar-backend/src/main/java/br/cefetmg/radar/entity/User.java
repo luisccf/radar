@@ -39,6 +39,9 @@ public class User {
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
     public Collection <Incident> incidents;
+    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
+    public Collection <Street> streets;
 
     
     public int getId() {

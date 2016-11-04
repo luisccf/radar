@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.cefetmg.radar.services;
 
-import br.cefetmg.radar.entity.User;
-import br.cefetmg.radar.dao.UserDAO;
+import br.cefetmg.radar.dao.StreetDAO;
+import br.cefetmg.radar.entity.Street;
 import br.cefetmg.radar.message.Result;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -21,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Ismael
+ * @author rafae_000
  */
-@WebServlet(name = "GetUser", urlPatterns = {"/getuser"})
-public class GetUser extends HttpServlet {
+@WebServlet(name = "CreateRoute", urlPatterns = {"/createroute"})
+public class CreateRoute extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,41 +36,46 @@ public class GetUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Gson gson = new Gson();
+
         response.setContentType("text/json;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
-        Gson gson = new Gson();
 
         StringBuilder sb = new StringBuilder();
         BufferedReader br = request.getReader();
         String str;
-        while( (str = br.readLine()) != null ){
+        while ((str = br.readLine()) != null) {
             sb.append(str);
         }
-        
-        User newUser = gson.fromJson(sb.toString(), User.class);
-        
-        try (PrintWriter out = response.getWriter()) {
-            try {
-                UserDAO userDAO = new UserDAO();
-                User user = userDAO.getByUsername(newUser.getUsername());
-                
-                if(user != null){
-                    out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
-                }else{
-                    out.println(gson.toJson(new Result(Result.USERNAME_DONT_EXISTS)));
+
+        PrintWriter out = response.getWriter();
+        try {
+
+            StreetDAO streetDAO = new StreetDAO();
+
+            Street[] route = gson.fromJson(sb.toString(), Street[].class);
+            
+            for(int i = 0; i < route.length; i++){
+                if(i != 0){
+                    streetDAO.openEntityManager();
                 }
-            } catch (Exception ex) {
-                StringBuilder error = new StringBuilder();
-        
-                for (StackTraceElement element : ex.getStackTrace()) {
-                    error.append(element.toString());
-                    error.append("\n");    
-                }
-                out.println(gson.toJson(new Result(Result.ERRO, error.toString())));
-                response.setStatus(500);
+                streetDAO.createStreet(route[i]);
             }
+            
+            out.println(gson.toJson(new Result(Result.OK)));
+            
+        } catch (Exception ex) {
+            StringBuilder error = new StringBuilder();
+        
+            for (StackTraceElement element : ex.getStackTrace()) {
+                error.append(element.toString());
+                error.append("\n");    
+            }
+            out.println(gson.toJson(new Result(Result.ERRO, error.toString())));
+            response.setStatus(500);
         }
+        
+        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
