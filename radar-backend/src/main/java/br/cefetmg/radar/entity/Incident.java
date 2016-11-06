@@ -36,6 +36,7 @@ public class Incident {
     private int armed;
     private double latitude;
     private double longitude;
+    private String street_name;
     private String description;
     private String objects_taken;
     private int reliability;
@@ -170,6 +171,14 @@ public class Incident {
 
     public void setReliability(int reliability) {
         this.reliability = reliability;
+    }
+
+    public String getStreet_name() {
+        return street_name;
+    }
+
+    public void setStreet_name(String street_name) {
+        this.street_name = street_name;
     }
     
 }

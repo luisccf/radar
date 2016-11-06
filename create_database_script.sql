@@ -56,6 +56,7 @@ CREATE TABLE `incident` (
   `armed` int(11) DEFAULT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
+  `street_name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `objects_taken` varchar(255) DEFAULT NULL,
   `reliability` int(11) DEFAULT NULL,
@@ -67,6 +68,7 @@ CREATE TABLE `incident` (
   CONSTRAINT `incident_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `incident_user_transport` FOREIGN KEY (`victims_transport_id`) REFERENCES `transport` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `service` (
