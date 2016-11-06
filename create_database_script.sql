@@ -33,6 +33,7 @@ CREATE TABLE `user` (
   `color_id` int(11) DEFAULT NULL,
   `height` int(11) DEFAULT NULL,
   `active` bit(1) DEFAULT b'1',
+  `tries` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `gender_user_idx` (`gender_id`),
@@ -40,6 +41,7 @@ CREATE TABLE `user` (
   CONSTRAINT `color_user` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `gender_user` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `incident` (
   `id` int(11) NOT NULL,
@@ -75,3 +77,16 @@ CREATE TABLE `service` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `state_UNIQUE` (`state`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `street` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `street_user_idx` (`user_id`),
+  CONSTRAINT `street_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+
