@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity  
-@Table(name = "street") 
+@Table(name = "location") 
 @XmlRootElement
-public class Street {
+public class Location {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")

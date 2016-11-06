@@ -5,8 +5,8 @@
  */
 package br.cefetmg.radar.services;
 
-import br.cefetmg.radar.dao.StreetDAO;
-import br.cefetmg.radar.entity.Street;
+import br.cefetmg.radar.dao.LocationDAO;
+import br.cefetmg.radar.entity.Location;
 import br.cefetmg.radar.message.Result;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
@@ -51,15 +51,15 @@ public class CreateRoute extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
-            StreetDAO streetDAO = new StreetDAO();
+            LocationDAO locationDAO = new LocationDAO();
 
-            Street[] route = gson.fromJson(sb.toString(), Street[].class);
+            Location[] route = gson.fromJson(sb.toString(), Location[].class);
             
             for(int i = 0; i < route.length; i++){
                 if(i != 0){
-                    streetDAO.openEntityManager();
+                    locationDAO.openEntityManager();
                 }
-                streetDAO.createStreet(route[i]);
+                locationDAO.createStreet(route[i]);
             }
             
             out.println(gson.toJson(new Result(Result.OK)));

@@ -41,7 +41,7 @@ public class User {
     public Collection <Incident> incidents;
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
-    public Collection <Street> streets;
+    public Collection <Location> streets;
 
     
     public int getId() {
