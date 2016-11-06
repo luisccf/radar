@@ -45,12 +45,12 @@ CREATE TABLE `user` (
 
 CREATE TABLE `incident` (
   `id` int(11) NOT NULL,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL,
   `num_criminals` int(11) DEFAULT NULL,
   `violence` bit(1) DEFAULT NULL,
   `num_victims` int(11) DEFAULT NULL,
   `police_report` varchar(255) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `victims_transport_id` int(11) DEFAULT NULL,
   `criminals_transport_id` int(11) DEFAULT NULL,
   `armed` int(11) DEFAULT NULL,
@@ -58,6 +58,7 @@ CREATE TABLE `incident` (
   `longitude` double NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `objects_taken` varchar(255) DEFAULT NULL,
+  `reliability` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_idx` (`user_id`),
   KEY `incident_transport_idx` (`victims_transport_id`),
@@ -66,6 +67,7 @@ CREATE TABLE `incident` (
   CONSTRAINT `incident_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `incident_user_transport` FOREIGN KEY (`victims_transport_id`) REFERENCES `transport` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `service` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -88,5 +90,3 @@ CREATE TABLE `street` (
   KEY `street_user_idx` (`user_id`),
   CONSTRAINT `street_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
-
