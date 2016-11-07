@@ -130,22 +130,44 @@ var createInfowindow = function(incident, marker) {
         $('<p>' + description + '</p>').appendTo(blockquote);
         $('<footer>' + footer + '</footer>').appendTo(blockquote);
     }
+
     // Generates infowindow content using a template
     var template = $('#info-window-template').html();
     Mustache.parse(template);
     var rendered = Mustache.render(
         template, 
         {
+            formatted_address: incident.location,
             num_criminals: num_criminals ? num_criminals : '',
             num_victims: num_victims ? num_victims : '',
             criminals_transport: criminals_transport ? criminals_transport : '',
             victims_transport: victims_transport ? victims_transport : '',
             violence: violence ? violence : '',
             blockquote: blockquote.prop('outerHTML'),
-            objects_taken: objects_taken ? objects_taken : '',
+            objects_taken: objects_taken ? objects_taken : 'Nada'
         }
     );
+
     $('#info-window-body').html(rendered);
+
+    // Calculates reliability and creates star widget
+    var reliability = 0;
+    if (incident.description)
+        reliability++;
+    if (incident.armed)
+        reliability++;
+    if (incident.objects_taken)
+        reliability++;
+    if (incident.police_report)
+        reliability++;
+    for (var i = 0; i < reliability; i++) {
+        $('#reliability').append('<i class="fa fa-star"></i>');
+    }
+    for (var i = reliability; i < 5; i++) {
+        $('#reliability').append('<i class="fa fa-star-o"></i>');
+    }
+    $('#reliability').append(' ' + 20 * reliability + '%');
+
     return new google.maps.InfoWindow({
         content: $('#info-window-body').html()
     });

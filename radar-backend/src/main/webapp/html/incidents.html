@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/sweetalert.css">
     <link rel="stylesheet" href="/css/map.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/mustache.min.js"></script>
@@ -88,6 +89,11 @@
         {{{ blockquote }}}
         <p><strong>Objetos levados</strong></p>
         <p>{{ objects_taken }}</p>
+        <p>
+            <strong>Credibilidade da denúncia</strong>
+            <i class="fa fa-question-circle-o" title="A credibilidade da denúncia é calculada levando em consideração quantas informações opcionais a vítima passou."></i>
+        </p>
+        <p id="reliability"></p>
     </script>
 </body>
 </html>
