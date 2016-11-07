@@ -16,6 +16,9 @@
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>/html/incidents.html</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>incidents</servlet-name>
         <jsp-file>/html/incidents.html</jsp-file>
