@@ -167,13 +167,18 @@ $(function() {
                 };
                 route.push(location);
             }
-            debugger
             $.ajax({
                 type: 'POST',
                 url: '/createroute',
                 data: JSON.stringify(route),
                 success: function(result) {
                     console.log(result);
+                    swal({
+                        title: 'Sucesso!',
+                        type: 'success'
+                    }, function() {
+                        window.location.href = '/incidents'
+                    });
                 },
                 error: function(e) {
                     swal({
