@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Radar - Registrar rota</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ewert|Poppins">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/sweetalert.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/map.css">
+    <link rel="stylesheet" href="/css/create-route.css">
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/mustache.min.js"></script>
+</head>
+<body onload="loadTemplate('#to-create-route')">
+    <header></header>
+    <section id="content">
+        <div class="container">
+            <h2 class="page-header">Registro de rota</h2>
+            <div class="col-md-6">
+                <input id="pac-input" class="controls" type="text" placeholder="Inserir local">
+                <div id="map" class="form-map"></div>
+                <div class="row">
+                </div>
+                <button type="button" class="btn btn-default" id="add-location">Adicionar local</button>
+                <button type="button" class="btn btn-danger" id="clear-map">Limpar marcadores</button>
+                <button type="button" class="btn btn-primary" id="add-route">Adicionar rota</button>
+            </div>
+            <hr class="visible-sm visible-xs">
+            <div class="col-md-6" id="locations">
+                <h3>Locais adicionados</h3>
+                <p>Nenhum local adicionado ainda</p>
+                <ul class="list-group">
+                </ul>
+            </div>
+        </div>
+    </section>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9i0jAUcFbVOnJkGjbUc4MInLiFBad0VE&libraries=places&callback=initAutocomplete" async defer></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/create-route.js"></script>
+</body>
+</html>

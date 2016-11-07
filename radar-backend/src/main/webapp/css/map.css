@@ -33,6 +33,9 @@
 #pac-input:focus {
   border-color: #4d90fe;
 }
+#pac-input.error {
+  border-color: #c9302c;
+}
 .pac-container {
   font-family: Roboto;
 }

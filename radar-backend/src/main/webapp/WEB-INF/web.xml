@@ -56,6 +56,14 @@
         <servlet-name>editUser</servlet-name>
         <url-pattern>/user/edit</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>createRoute</servlet-name>
+        <jsp-file>/html/create-route.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createRoute</servlet-name>
+        <url-pattern>/routes/create</url-pattern>
+    </servlet-mapping>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.html</url-pattern>

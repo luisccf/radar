@@ -1,0 +1,9 @@
+#locations > h3 {
+    margin-top: 0px;
+}
+
+@media (max-width: 446px) {
+    button#add-route {
+        margin-top: 5px;
+    }
+}
