@@ -41,7 +41,7 @@ public class User {
     public Collection <Incident> incidents;
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "user")
-    public Collection <Location> streets;
+    public Collection <Location> locations;
 
     
     public int getId() {
@@ -130,6 +130,14 @@ public class User {
 
     public void setTries(int tries) {
         this.tries = tries;
+    }
+
+    public Collection<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(Collection<Location> locations) {
+        this.locations = locations;
     }
     
 }

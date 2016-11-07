@@ -60,8 +60,6 @@ public class CreateIncident extends HttpServlet {
             if(newIncident.getArmed() > 0) newIncident.setReliability(newIncident.getReliability()+1);
             if(newIncident.getCriminals_transport() != null) newIncident.setReliability(newIncident.getReliability()+1);
             if(newIncident.getDescription() != null) newIncident.setReliability(newIncident.getReliability()+1);
-            if(newIncident.getNum_criminals() > 0) newIncident.setReliability(newIncident.getReliability()+1);
-            if(newIncident.getNum_victims() > 0) newIncident.setReliability(newIncident.getReliability()+1);
             if(newIncident.getObjects_taken() != null) newIncident.setReliability(newIncident.getReliability()+1);
             if(newIncident.getPolice_report()!= null) newIncident.setReliability(newIncident.getReliability()+1);
 
@@ -89,7 +87,7 @@ public class CreateIncident extends HttpServlet {
 
                     if(newIncident.getObjects_taken() != null) msg += "Objetos roubados: \"" + newIncident.getObjects_taken() + "\".\n";
 
-                    if(newIncident.getNum_criminals() > 0) msg += "Número de assaltantes: " + newIncident.getNum_criminals() + ".\n";
+                    msg += "Número de assaltantes: " + newIncident.getNum_criminals() + ".\n";
 
                     if(newIncident.isViolence()){
                         msg += "Houve violência.\n";
@@ -97,7 +95,7 @@ public class CreateIncident extends HttpServlet {
                         msg += "Não houve violência.\n";
                     }
 
-                    if(newIncident.getNum_victims() > 0) msg += "Número de vítimas: " + newIncident.getNum_victims() + ".\n";
+                    msg += "Número de vítimas: " + newIncident.getNum_victims() + ".\n";
 
                     if(newIncident.getPolice_report()!= null) msg += "Código boletim de ocorrência: " + newIncident.getPolice_report() + ".\n";
 

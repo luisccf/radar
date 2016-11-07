@@ -19,6 +19,7 @@
             <form method="post" role="form">
                 <input type="hidden" name="lat">
                 <input type="hidden" name="lng">
+                <input type="hidden" name="location">
                 <div class="col-md-6">
                     <input id="pac-input" class="controls" type="text" placeholder="Local do crime" required>
                     <div id="map" class="form-map"></div>
@@ -56,13 +57,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label for="num_victims" class="control-label">Pessoas com você</label>
                                 <input class="form-control" type="number" name="num_victims" value="1" min="1">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label for="num_criminals" class="control-label">Número de assaltantes</label>
                                 <input class="form-control" type="number" name="num_criminals" value="1" min="1">
                             </div>
@@ -88,13 +89,13 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label for="violence" class="control-label">Houve violência?</label>
                                 <div class="radio">
-                                    <label><input value="true" type="radio" name="violence">Sim</label>
+                                    <label><input value="true" type="radio" name="violence" required>Sim</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input value="false" type="radio" name="violence">Não</label>
+                                    <label><input value="false" type="radio" name="violence" required>Não</label>
                                 </div>
                             </div>
                         </div>

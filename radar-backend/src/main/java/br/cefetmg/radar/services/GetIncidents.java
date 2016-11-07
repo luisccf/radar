@@ -38,6 +38,7 @@ public class GetIncidents extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         GsonBuilder b = new GsonBuilder();
         
         b.registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY);
@@ -63,7 +64,11 @@ public class GetIncidents extends HttpServlet {
 
                     if(list.get(i).getUser().getGender() != null){
                         list.get(i).getUser().getGender().setUsers(null);
-                    }   
+                    }
+                    
+                    if(list.get(i).getUser().getLocations() != null){
+                        list.get(i).getUser().setLocations(null);
+                    }
                 }
             }
 
