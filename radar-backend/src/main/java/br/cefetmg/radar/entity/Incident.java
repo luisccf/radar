@@ -36,6 +36,7 @@ public class Incident {
     private int armed;
     private double latitude;
     private double longitude;
+    private String location;
     private String description;
     private String objects_taken;
     private int reliability;
@@ -170,6 +171,14 @@ public class Incident {
 
     public void setReliability(int reliability) {
         this.reliability = reliability;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
     
 }

@@ -33,6 +33,7 @@ CREATE TABLE `user` (
   `color_id` int(11) DEFAULT NULL,
   `height` int(11) DEFAULT NULL,
   `active` bit(1) DEFAULT b'1',
+  `tries` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `gender_user_idx` (`gender_id`),
@@ -41,21 +42,24 @@ CREATE TABLE `user` (
   CONSTRAINT `gender_user` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE `incident` (
   `id` int(11) NOT NULL,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL,
   `num_criminals` int(11) DEFAULT NULL,
   `violence` bit(1) DEFAULT NULL,
   `num_victims` int(11) DEFAULT NULL,
   `police_report` varchar(255) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `victims_transport_id` int(11) DEFAULT NULL,
   `criminals_transport_id` int(11) DEFAULT NULL,
   `armed` int(11) DEFAULT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
+  `location` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `objects_taken` varchar(255) DEFAULT NULL,
+  `reliability` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_idx` (`user_id`),
   KEY `incident_transport_idx` (`victims_transport_id`),
@@ -64,6 +68,9 @@ CREATE TABLE `incident` (
   CONSTRAINT `incident_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `incident_user_transport` FOREIGN KEY (`victims_transport_id`) REFERENCES `transport` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 
 CREATE TABLE `service` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -75,3 +82,15 @@ CREATE TABLE `service` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `state_UNIQUE` (`state`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `latitude` double NOT NULL,
+  `longitude` double NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `street_user_idx` (`user_id`),
+  CONSTRAINT `street_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
