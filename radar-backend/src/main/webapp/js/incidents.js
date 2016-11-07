@@ -196,21 +196,53 @@ $(function() {
         }
     });
     $('#filter-btn').click(function() {
-        var period = $('select[name=period]');
-        if (period.val()) {
-            var min = period.val().split(',')[0],
-                max = period.val().split(',')[1];
-            $.each(incidents, function(i, incident) {
-                if (incident != undefined) {
-                    var date = new Date(incident.date);
+        // Filters by period and gender
+        var period = $('select[name=period]'),
+            gender = $('select[name=gender]');
+        var url = '/filterincidents';
+        // Defines url args
+        if (period && gender)
+            url += '?period=' + period.val() + '&gender=' + gender.val();
+        else if (period)
+            url += '?period=' + period.val();
+        else if (gender)
+            url += '?gender=' + gender.val();
+        else
+            $('#filter-window').modal('hide');
+            return;
 
-                    if ((date.getHours() >= min && date.getHours() <= max) == false) {
-                        markers[incident.id].setVisible(false);
-                    }
+        $.ajax({
+            url: url,
+            success: function(result) {
+                for (id in result) {
+                    markers[id].setVisible(false);
                 }
-            });
-        }
-        $('#filter-window').modal('hide');
-        return false;
+            },
+            error: function(error) {
+                swal({
+                    title: 'Erro',
+                    type: 'error',
+                    text: 'Não foi possível filtrar as ocorrências.'
+                });
+            },
+            complete: function() {
+                $('#filter-window').modal('hide');
+            }
+        });
+
+        // if (period.val()) {
+        //     // Values are in format {min},{max} e.g. value="6,11"
+        //     var min = period.val().split(',')[0],
+        //         max = period.val().split(',')[1];
+        //     $.each(incidents, function(i, incident) {
+        //         if (incident != undefined) {
+        //             var date = new Date(incident.date);
+        //             if ((date.getHours() >= min && date.getHours() <= max) == false) {
+        //                 markers[incident.id].setVisible(false);
+        //             } else if 
+        //         }
+        //     });
+        // }
+
     });
 });
