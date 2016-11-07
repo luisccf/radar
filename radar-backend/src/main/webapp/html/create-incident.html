@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ewert|Poppins">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/sweetalert.css">
     <link rel="stylesheet" href="/css/map.css">
 
     <script src="/js/jquery.min.js"></script>
@@ -19,6 +20,7 @@
             <form method="post" role="form">
                 <input type="hidden" name="lat">
                 <input type="hidden" name="lng">
+                <input type="hidden" name="location">
                 <div class="col-md-6">
                     <input id="pac-input" class="controls" type="text" placeholder="Local do crime" required>
                     <div id="map" class="form-map"></div>
@@ -46,7 +48,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label for="criminals_transport" class="control-label">Transporte dos assaltantes</label>
                                 <select class="form-control" name="criminals_transport" required>
                                     <option value="" selected disabled>Selecione uma opção</option>
@@ -88,13 +90,13 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label for="violence" class="control-label">Houve violência?</label>
                                 <div class="radio">
-                                    <label><input value="true" type="radio" name="violence">Sim</label>
+                                    <label><input required value="true" type="radio" name="violence">Sim</label>
                                 </div>
                                 <div class="radio">
-                                    <label><input value="false" type="radio" name="violence">Não</label>
+                                    <label><input required value="false" type="radio" name="violence">Não</label>
                                 </div>
                             </div>
                         </div>
@@ -115,6 +117,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHiw6bxUMu-cjHlBCH4a4HSEeDIq3v4U4&libraries=places&callback=initAutocomplete" async defer></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/utils.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
     <script src="/js/create-incident.js"></script>
 </body>
 </html>

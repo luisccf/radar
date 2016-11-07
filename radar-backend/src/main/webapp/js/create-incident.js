@@ -78,6 +78,7 @@ $(function() {
         var incident = {
             'latitude': $('input[name=lat]').val(),
             'longitude': $('input[name=lng]').val(),
+            'location': $('input[name=location]').val(),
             'date': date,
             'description': $('textarea[name=description]').val(),
             'num_criminals': $('input[name=num_criminals]').val(),
@@ -96,10 +97,21 @@ $(function() {
             data: JSON.stringify(incident),
             success: function(d) {
                 console.log(d);
-                //window.location.href = '/incidents';
+                swal({
+                    type: 'success',
+                    title: 'Sucesso',
+                    text: 'Sua ocorrência foi criada com sucesso'
+                }, function() {
+                    window.location.href = '/incidents';
+                });
             },
             error: function(e) {
                 console.log(e);
+                swal({
+                    type: 'error',
+                    title: 'Erro',
+                    text: 'Ocorreu um erro ao criar sua ocorrência'
+                });
             }
         })
         return false;
