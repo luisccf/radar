@@ -1,9 +1,13 @@
 package br.cefetmg.radar.dao;
 
 import br.cefetmg.radar.entity.Location;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 
 public class LocationDAO {
@@ -32,5 +36,17 @@ public class LocationDAO {
         } finally {
             entityManager.close();  //fecha o entityManager
         }
+    }
+    
+    public List <Location> getByLocation(String location){
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Location> criteria = cb.createQuery( Location.class );
+        Root<Location> userRoot = criteria.from( Location.class );
+        criteria.select( userRoot );
+        criteria.where( cb.equal( userRoot.get( "name" ), location ) );
+        List<Location> locations = entityManager.createQuery( criteria ).getResultList();
+        
+        return locations;
+        
     }
 }

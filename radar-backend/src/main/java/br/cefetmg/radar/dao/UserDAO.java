@@ -7,9 +7,7 @@ package br.cefetmg.radar.dao;
 
 import br.cefetmg.radar.entity.User;
 import br.cefetmg.radar.exception.ConfigurationException;
-import br.cefetmg.radar.exception.ConfirmException;
 import br.cefetmg.radar.util.cryptography.MD5;
-import java.text.ParseException; 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
