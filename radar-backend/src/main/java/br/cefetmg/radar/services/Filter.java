@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rafae_000
  */
-@WebServlet(name = "Filter", urlPatterns = {"/filter"})
+@WebServlet(name = "Filter", urlPatterns = {"/filterincidents"})
 public class Filter extends HttpServlet {
 
     /**
