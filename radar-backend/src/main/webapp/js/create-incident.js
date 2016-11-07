@@ -88,7 +88,6 @@ $(function() {
             'num_victims': $('input[name=num_victims]').val(),
             'police_report': $('input[name=police_report]').val(),
             'objects_taken': $('input[name=objects_taken]').val(),
-            'location': $('input[name=location]').val(),
             'user': {'id': 1}
         };
         $.ajax({
@@ -97,14 +96,9 @@ $(function() {
             data: JSON.stringify(incident),
             success: function(d) {
                 console.log(d);
-                window.location.href = '/incidents';
+                //window.location.href = '/incidents';
             },
             error: function(e) {
-                swal({
-                    title: 'Erro!',
-                    text:  'Algo deu errado ao adicionar sua ocorrência. suck deez nuts',
-                    type: 'error'
-                });
                 console.log(e);
             }
         })
