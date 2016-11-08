@@ -131,7 +131,7 @@ var initEditUserPage = function() {
         if (!checkPasswords())
             return false;
         var user = {
-            'username': $('input[name=username]').val(),
+            // 'username': $('input[name=username]').val(),
             'email': $('input[name=email]').val(),
             'password': $('input[name=password]').val(),
             'birth': $('input[name=birth]').val(),
@@ -143,7 +143,7 @@ var initEditUserPage = function() {
         initAjaxCall();
         $.ajax({
             type: 'POST',
-            url: '/edituser',
+            url: '/updateuser',
             data: JSON.stringify(user),
             success: function(result) {
                 swal({
@@ -166,6 +166,38 @@ var initEditUserPage = function() {
         });
         return false; 
     });
+    
+    $('#deactivate-account').click(function() {
+        swal({
+            title: 'Tem certeza disso?',
+            text: 'Sua conta será desativada, mas suas ocorrências não serão removidas.',
+            type: 'warning',
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        }, function() {
+            $.ajax({
+                url: '/deactivateaccount?id=' + 1,
+                success: function() {
+                    swal({
+                        type: 'success',
+                        title: 'Sucesso',
+                        text: 'Conta desativada com sucesso :/'
+                    }, function() {
+                        window.location.href = '/incidents';
+                    });
+                },
+                error: function() {
+                    swal({
+                        type: 'error',
+                        title: 'Erro',
+                        text: 'Não foi possível desativar sua conta ^^'
+                    });
+                }
+            });
+        });
+    });
+
 }
 
 $(function() {
