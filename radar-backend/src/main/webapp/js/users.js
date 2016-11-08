@@ -90,19 +90,24 @@ var initCreateUserPage = function() {
 var initEditUserPage = function() {
     // Loads current user, all colors and all genders via ajax call
     var user_id = window.location.href.split('?user=')[1];
+    var gender, color;
     $.ajax({
         url: '/getuser',
         data: 'id=' + user_id,
         type: 'GET',
+        async: false,
         success: function(user) {
             console.log(user);
-            var date = new Date(user.birth);
-            var formatted_date = [date.getFullYear(), date.getMonth(), date.getDate()].join('-');
+            var d = new Date(user.birth);
+            var day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
+            var month = d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1;
+            var year = d.getFullYear();        
+            var formatted_date = [year, month, day].join('-');
             $('input[name=username]').val(user.username);
             $('input[name=email]').val(user.email);
             $('input[name=birth]').val(formatted_date);
-            $('select[name=gender]').val(user.gender);
-            $('select[name=color]').val(user.color);
+            gender = user.gender.id;
+            color = user.color.id;
             $('select[name=height]').val(user.height);
         },
         error: function(error) {
@@ -113,6 +118,7 @@ var initEditUserPage = function() {
         url: '/getcolors',
         success: function(colors) {
             loadOptions($('select[name=color]'), colors);
+            $('select[name=color]').val(color);
         },
         error: function(error) {
             console.log(error);
@@ -122,6 +128,7 @@ var initEditUserPage = function() {
         url: '/getgenders',
         success: function(genders) {
             loadOptions($('select[name=gender]'), genders);
+            $('select[name=gender]').val(gender);
         },
         error: function(error) {
             console.log(error);
@@ -133,9 +140,9 @@ var initEditUserPage = function() {
         if (!checkPasswords())
             return false;
         var user = {
-            // 'username': $('input[name=username]').val(),
+            'username': $('input[name=username]').val(),
             'email': $('input[name=email]').val(),
-            'password': $('input[name=password]').val(),
+            'oldpassword': $('input[name=password]').val(),
             'birth': $('input[name=birth]').val(),
             'gender': {'id': $('select[name=gender]').val()},
             'color': {'id': $('select[name=color]').val()},
