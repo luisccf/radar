@@ -19,6 +19,7 @@ public class Result {
     public static final String INVALID_DATE = "INVALID_DATE";
     public static final String SERVICE_DOESNT_EXISTS = "SERVICE_DOESNT_EXISTS";
     public static final String NUMBER_OF_TRIES_EXCEEDED = "NUMBER_OF_TRIES_EXCEEDED";
+    public static final String USER_NOT_FOUND = "USER_NOT_FOUND";
 
     public Result(String result) {
         this.result = result;

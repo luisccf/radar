@@ -9,7 +9,9 @@ package br.cefetmg.radar.services;
 import br.cefetmg.radar.entity.User;
 import br.cefetmg.radar.dao.UserDAO;
 import br.cefetmg.radar.message.Result;
+import br.cefetmg.radar.util.typeadapter.HibernateProxyTypeAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,26 +42,37 @@ public class GetUser extends HttpServlet {
         response.setContentType("text/json;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        Gson gson = new Gson();
-
-        StringBuilder sb = new StringBuilder();
-        BufferedReader br = request.getReader();
-        String str;
-        while( (str = br.readLine()) != null ){
-            sb.append(str);
-        }
+        GsonBuilder b = new GsonBuilder();
         
-        User newUser = gson.fromJson(sb.toString(), User.class);
+        b.registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY);
+        
+        Gson gson = b.create();
+        
+        int iduser = Integer.parseInt(request.getParameter("id"));
         
         try (PrintWriter out = response.getWriter()) {
             try {
                 UserDAO userDAO = new UserDAO();
-                User user = userDAO.getByUsername(newUser.getUsername());
+                User user = userDAO.getById(iduser);
                 
                 if(user != null){
-                    out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
+                    user.setIncidents(null);
+                    
+                    if(user.getColor() != null){
+                        user.getColor().setUsers(null);
+                    }
+
+                    if(user.getGender() != null){
+                        user.getGender().setUsers(null);
+                    }
+                    
+                    if(user.getLocations() != null){
+                        user.setLocations(null);
+                    }
+                    
+                    out.println(gson.toJson(user));
                 }else{
-                    out.println(gson.toJson(new Result(Result.USERNAME_DONT_EXISTS)));
+                    out.println(gson.toJson(new Result(Result.USER_NOT_FOUND)));
                 }
             } catch (Exception ex) {
                 StringBuilder error = new StringBuilder();
