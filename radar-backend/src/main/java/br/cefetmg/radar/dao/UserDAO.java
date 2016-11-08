@@ -104,12 +104,18 @@ public class UserDAO {
             User userPersisted = entityManager.find(User.class, newUser.getId());
             if (userPersisted != null) {
                 userPersisted.setUsername(newUser.getUsername());
-                userPersisted.setPassword(MD5.crypt(newUser.getPassword()));
                 userPersisted.setEmail(newUser.getEmail());
                 userPersisted.setBirth(newUser.getBirth());
                 userPersisted.setActive(newUser.getActive());
                 userPersisted.setColor(newUser.getColor());
                 userPersisted.setTries(newUser.getTries());
+                userPersisted.setGender(newUser.getGender());
+                
+                if(newUser.getPassword() != null){
+                    userPersisted.setPassword(MD5.crypt(newUser.getPassword()));
+                } else {
+                    userPersisted.setPassword(userPersisted.getPassword());
+                }
 
                 if(newUser.getHeight() == 0){
                     userPersisted.setHeight(-1);

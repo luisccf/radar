@@ -74,7 +74,7 @@ $(function() {
     });
 
     $('form').submit(function() {
-        var date = new Date($('input[name=date]').val() + ' ' + $('input[name=time]').val());
+        var date = new Date($('input[name=date]').val() + 'T' + $('input[name=time]').val() + ':00Z');
         var incident = {
             'latitude': $('input[name=lat]').val(),
             'longitude': $('input[name=lng]').val(),

@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -91,44 +92,32 @@ public class Filter extends HttpServlet {
                     period_end += "23:59";
                     break;
                 case 1:
-                    period_init += "00:01";
-                    period_end += "06:00";
+                    period_init += "00:00";
+                    period_end += "05:59";
                     break;
                 case 2:
-                    period_init += "06:01";
-                    period_end += "12:00";
+                    period_init += "06:00";
+                    period_end += "11:59";
                     break;
                 case 3:
-                    period_init += "12:01";
-                    period_end += "18:00";
+                    period_init += "12:00";
+                    period_end += "17:59";
                     break;
                 case 4:
-                    period_init += "18:01";
-                    period_end += "00:00";
+                    period_init += "18:00";
+                    period_end += "23:59";
                     break;
             }
             
             List <Incident> list = incidentDAO.filterIncidents(armed, gender, violence, period_init, period_end);
             
+           ArrayList<Integer> incidents_id = new ArrayList<Integer>();
+            
             for(int i = 0; i < list.size(); i++){
-                if(list.get(i).getUser() != null){
-                    list.get(i).getUser().setIncidents(null);
-                    
-                    if(list.get(i).getUser().getColor() != null){
-                        list.get(i).getUser().getColor().setUsers(null);
-                    }
-
-                    if(list.get(i).getUser().getGender() != null){
-                        list.get(i).getUser().getGender().setUsers(null);
-                    }
-                    
-                    if(list.get(i).getUser().getLocations() != null){
-                        list.get(i).getUser().setLocations(null);
-                    }
-                }
+                incidents_id.add(list.get(i).getId());
             }
             
-            out.println(gson.toJson(list));
+            out.println(gson.toJson(incidents_id));
             
         } catch (Exception ex) {
             StringBuilder error = new StringBuilder();

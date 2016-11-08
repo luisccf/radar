@@ -7,7 +7,7 @@ var initMap = function() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 34.0093, lng: -118.4974},
         zoom: 5,
-        maxZoom: 12,
+        maxZoom: 15,
         streetViewControl: false,
         mapTypeControlOptions: {
             style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
@@ -133,6 +133,21 @@ var createInfowindow = function(incident, marker) {
         $('<p>' + description + '</p>').appendTo(blockquote);
         $('<footer>' + footer + '</footer>').appendTo(blockquote);
     }
+    var armed;
+    switch (incident.armed) {
+        case 1:
+            armed = 'Crimonoso desarmado';
+            break;
+        case 2:
+            armed = 'Criminoso com arma branca';
+            break;
+        case 3:
+            armed = 'Criminoso com arma de fogo';
+            break;
+        case 0:
+        default:
+            armed = '';
+    }
 
     // Generates infowindow content using a template
     var template = $('#info-window-template').html();
@@ -148,7 +163,8 @@ var createInfowindow = function(incident, marker) {
             victims_transport: victims_transport ? victims_transport : '',
             violence: violence ? violence : '',
             blockquote: blockquote.prop('outerHTML'),
-            objects_taken: objects_taken ? objects_taken : 'Nada'
+            objects_taken: objects_taken ? objects_taken : 'Nada',
+            armed: armed
         }
     );
 
@@ -225,20 +241,16 @@ $(function() {
         url += '&violence=' + violence;
         url += '&period=' + period;
 
-        if (armed == 0 && gender == 0 && violence == -1 && period == -1)
+        if (armed == 0 && gender == 0 && violence == -1 && period == 0)
             return;
 
         $.ajax({
             url: url,
             success: function(result) {
                 console.log(result);
-                var result_ids = [];
-                for (var i = 0; i < result.length; i++) {
-                    result_ids.push(result[i].id);
-                }
                 for (var i = 0; i < incidents.length; i++) {
                     if (incidents[i] != undefined) {
-                        if ($.inArray(incidents[i].id, result_ids) >= 0)
+                        if ($.inArray(incidents[i].id, result) >= 0)
                             markers[incidents[i].id].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
                         else
                             markers[incidents[i].id].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');

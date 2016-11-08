@@ -7,7 +7,9 @@ package br.cefetmg.radar.services;
 
 import br.cefetmg.radar.dao.UserDAO;
 import br.cefetmg.radar.entity.User;
+import br.cefetmg.radar.entity.UserToUpdate;
 import br.cefetmg.radar.message.Result;
+import br.cefetmg.radar.util.cryptography.MD5;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,7 +53,17 @@ public class UpdateUser extends HttpServlet {
             sb.append(str);
         }
         
-        User newUser = gson.fromJson(sb.toString(), User.class);
+        UserToUpdate userToUpdate = gson.fromJson(sb.toString(), UserToUpdate.class);
+        
+        User newUser = new User();
+        newUser.setBirth(userToUpdate.getBirth());
+        newUser.setColor(userToUpdate.getColor());
+        newUser.setEmail(userToUpdate.getEmail());
+        newUser.setGender(userToUpdate.getGender());
+        newUser.setHeight(userToUpdate.getHeight());
+        newUser.setId(userToUpdate.getId());
+        newUser.setUsername(userToUpdate.getUsername());
+        newUser.setPassword(userToUpdate.getNewpassword());
         
         try (PrintWriter out = response.getWriter()) {
            try {
@@ -63,34 +75,36 @@ public class UpdateUser extends HttpServlet {
                User userGotByUsername = userDAO.getByUsername(newUser.getUsername());
                User userGotByEmail = userDAO.getByEmail(newUser.getEmail());
                User userGotById = userDAO.getById(newUser.getId());
-            
-                if(userGotById != null){
-                    if (newUser.getPassword().length() >= 4) {
-                        if (newUser.getUsername().length() >= 4) {
-                            if (userGotByUsername == null || userGotById.getUsername().equals(newUser.getUsername())){
-                                if(userGotByEmail == null || userGotById.getEmail().equals(newUser.getEmail())){
-                                    if(diff > 13){
-                                        newUser.setActive(true);
-                                        userDAO.openEntityManager();
-                                        userDAO.updateUser(newUser);    //atualiza no banco de dados
-                                        out.println(gson.toJson(new Result(Result.OK)));
-                                    } else {
-                                        out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
-                                    }
+               
+               if(userGotById != null){
+                   if(userGotById.getPassword().equals(MD5.crypt(userToUpdate.getOldpassword()))){
+                        if (userGotByUsername == null || userGotById.getUsername().equals(newUser.getUsername())){
+                            if(userGotByEmail == null || userGotById.getEmail().equals(newUser.getEmail())){
+                                if(diff > 13){
+                                    newUser.setActive(true);
+                                    newUser.setTries(userGotById.getTries());
+                                    userDAO.openEntityManager();
+                                    userDAO.updateUser(newUser);    //atualiza no banco de dados
+                                    out.println(gson.toJson(new Result(Result.OK)));
                                 } else {
-                                    out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
-                                }                       
+                                    out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
+                                    response.setStatus(400);
+                                }
                             } else {
-                                out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
-                            }
+                                out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
+                                response.setStatus(400);
+                            }                       
                         } else {
-                            out.println(gson.toJson(new Result(Result.SHORT_USERNAME)));
+                            out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
+                            response.setStatus(400);
                         }
-                    } else {
-                        out.println(gson.toJson(new Result(Result.SHORT_PASSWORD)));
-                    }      
+                   } else {
+                       out.println(gson.toJson(new Result(Result.WRONG_PASSWORD)));
+                       response.setStatus(400);
+                   }      
                 } else {
                     out.println(gson.toJson(new Result(Result.USER_DOESNT_EXISTS)));
+                    response.setStatus(400);
                 }
                 
             } catch (Exception ex) {

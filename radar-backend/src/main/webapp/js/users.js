@@ -89,16 +89,18 @@ var initCreateUserPage = function() {
 
 var initEditUserPage = function() {
     // Loads current user, all colors and all genders via ajax call
-    var username = window.location.href.split('?user=')[1];
+    var user_id = window.location.href.split('?user=')[1];
     $.ajax({
         url: '/getuser',
-        data: JSON.stringify({'username': username}),
-        type: 'POST',
+        data: 'id=' + user_id,
+        type: 'GET',
         success: function(user) {
             console.log(user);
+            var date = new Date(user.birth);
+            var formatted_date = [date.getFullYear(), date.getMonth(), date.getDate()].join('-');
             $('input[name=username]').val(user.username);
             $('input[name=email]').val(user.email);
-            $('input[name=birth]').val(user.birth);
+            $('input[name=birth]').val(formatted_date);
             $('select[name=gender]').val(user.gender);
             $('select[name=color]').val(user.color);
             $('select[name=height]').val(user.height);
