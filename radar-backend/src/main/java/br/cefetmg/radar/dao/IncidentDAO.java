@@ -51,7 +51,7 @@ public class IncidentDAO {
         
         Query query = entityManager.createQuery("FROM Incident i WHERE i.armed LIKE '" + armed + "'"
                 + " and (i.violence = " + violence + ")"
-                + " and i.user.gender.id LIKE '" + gender + "'"
+                + " and (i.user.gender.id LIKE '" + gender + ")"
                 + " and TIME(i.date) < '" + period_end + "'" + "and TIME(i.date) > '" + period_init + "'");
         List<Incident> incidents = query.getResultList();  
         

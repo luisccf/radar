@@ -65,8 +65,12 @@ public class Filter extends HttpServlet {
             int gender_id = Integer.parseInt(request.getParameter("gender"));
             String gender = "";
             switch(gender_id){
-                case 0: gender += "%"; break;
-                default: gender += Integer.toString(gender_id);
+                case 0: 
+                    gender += "%' or i.user.gender is null";
+                    break;
+                default: 
+                    gender += Integer.toString(gender_id);
+                    gender += "'";
             }
             
             String violence = request.getParameter("violence");
