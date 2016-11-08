@@ -50,14 +50,19 @@ public class Login extends HttpServlet {
                 
                 if(user_got_by_email != null){
                     if(user_got_by_email.getTries() < 5){
-                        user.setPassword(MD5.crypt(user.getPassword()));
-                        if (user.getPassword().equals(userDAO.getByEmail(user.getEmail()).getPassword())){                                                          
-                            out.println(gson.toJson(new Result(Result.OK)));
+                        if(user_got_by_email.getActive()){
+                            user.setPassword(MD5.crypt(user.getPassword()));
+                            if (user.getPassword().equals(user_got_by_email.getPassword())){                                                          
+                                out.println(gson.toJson(new Result(Result.OK)));
+                            } else {
+                                user_got_by_email.setTries(user_got_by_email.getTries()+1);
+                                userDAO.updateUser(user_got_by_email);
+                                out.println(gson.toJson(new Result(Result.EMAIL_OR_PASSWORD_WRONG)));
+                                response.setStatus(404);
+                            }
                         } else {
-                            user_got_by_email.setTries(user_got_by_email.getTries()+1);
-                            userDAO.updateUser(user_got_by_email);
-                            out.println(gson.toJson(new Result(Result.EMAIL_OR_PASSWORD_WRONG)));
-                            response.setStatus(404);
+                            out.println(gson.toJson(new Result(Result.DEACTIVATED_USER)));
+                            response.setStatus(400);
                         }
                     } else {
                         out.println(gson.toJson(new Result(Result.NUMBER_OF_TRIES_EXCEEDED)));
