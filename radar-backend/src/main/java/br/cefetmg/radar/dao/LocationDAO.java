@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -48,5 +49,16 @@ public class LocationDAO {
         
         return locations;
         
+    }
+    
+    public int maxRouteId(int user_id){
+        Query query = entityManager.createQuery("SELECT max(l.route_id)"
+                + " FROM Location as l WHERE l.user.id = " + user_id);
+        
+        if(query.getSingleResult() == null){
+            return 0;
+        } else {
+            return (int) query.getSingleResult();
+        }
     }
 }

@@ -55,10 +55,13 @@ public class CreateRoute extends HttpServlet {
 
             Location[] route = gson.fromJson(sb.toString(), Location[].class);
             
+            int route_id = locationDAO.maxRouteId(route[0].getUser().getId());
+            
             for(int i = 0; i < route.length; i++){
                 if(i != 0){
                     locationDAO.openEntityManager();
                 }
+                route[i].setRoute_id(route_id+1);
                 locationDAO.createStreet(route[i]);
             }
             

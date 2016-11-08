@@ -23,6 +23,7 @@ public class Location {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private int id;
+    private int route_id;
     private String name;
     private double latitude;
     private double longitude;
@@ -70,6 +71,13 @@ public class Location {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
+
+    public int getRoute_id() {
+        return route_id;
+    }
+
+    public void setRoute_id(int route_id) {
+        this.route_id = route_id;
+    }
+       
 }
