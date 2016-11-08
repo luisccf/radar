@@ -108,17 +108,17 @@ var createInfowindow = function(incident, marker) {
         description = incident.description;
     if (incident.num_criminals > 1) {
         num_criminals += incident.num_criminals + ' assaltantes';
-        criminals_transport = 'Os assaltantes estavam ' + incident.criminals_transport.name;
+        criminals_transport = 'Transporte assaltantes: ' + incident.criminals_transport.name;
     } else {
         num_criminals += '' + incident.num_criminals + ' assaltante';
-        criminals_transport = 'O assaltante estava ' + incident.criminals_transport.name;
+        criminals_transport = 'Transporte assaltante: ' + incident.criminals_transport.name;
     }
     if (incident.num_victims > 1) {
         num_victims += '' + incident.num_victims + ' vítimas';
-        victims_transport = 'As vítimas estavam ' + incident.victims_transport.name;
+        victims_transport = 'Transporte vítimas: ' + incident.victims_transport.name;
     } else {
         num_victims += incident.num_victims + ' vítima';
-        victims_transport = 'A vítima estava ' + incident.victims_transport.name;
+        victims_transport = 'Transporte vítima: ' + incident.victims_transport.name;
     }
     var date = new Date(incident.date);
     var formatted_date = [date.getDate(), date.getMonth(), date.getFullYear()].join('/') 
