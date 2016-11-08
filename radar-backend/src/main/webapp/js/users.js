@@ -1,3 +1,5 @@
+var g_user;
+
 var loadOptions = function(select, items) {
     $.each(items, function (i, item) {
         select.append($('<option>', { 
@@ -34,9 +36,12 @@ var checkStatus = function(status) {
     }
 }
 
-var checkPasswords = function() {
-    if ($('input[name=password]').val() != $('input[name=check-password]').val()) {
-        $('input[name=password], input[name=check-password').siblings('[name=form-error]')
+var checkPasswords = function(password, check) {
+    if (password.val() != check.val()) {
+        password.siblings('[name=form-error]')
+            .html('Senhas não conferem.')
+            .fadeIn();
+        check.siblings('[name=form-error]')
             .html('Senhas não conferem.')
             .fadeIn();
         return false;
@@ -57,7 +62,7 @@ var finishAjaxCall = function() {
 var initCreateUserPage = function() {
     $('#signup-form').submit(function() {
         $('[name=form-error]').fadeOut();
-        if (!checkPasswords())
+        if (!checkPasswords($('input[name=password]'), $('input[name=check-password]')))
             return false;
         var user = {
             'username': $('input[name=username]').val(),
@@ -95,8 +100,8 @@ var initEditUserPage = function() {
         url: '/getuser',
         data: 'id=' + user_id,
         type: 'GET',
-        async: false,
         success: function(user) {
+            g_user = user;
             console.log(user);
             var d = new Date(user.birth);
             var day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
@@ -106,39 +111,46 @@ var initEditUserPage = function() {
             $('input[name=username]').val(user.username);
             $('input[name=email]').val(user.email);
             $('input[name=birth]').val(formatted_date);
-            gender = user.gender.id;
-            color = user.color.id;
+            $('select[name=height]').val(user.height);
+            gender = user.gender === undefined ? undefined : user.gender.id;
+            color = user.color === undefined ? undefined : user.color.id;
+            $.ajax({
+                url: '/getcolors',
+                success: function(colors) {
+                    loadOptions($('select[name=color]'), colors);
+                    $('select[name=color]').val(color);
+                },
+                error: function(error) {
+                    console.log(error);
+                }   
+            });    
+            $.ajax({
+                url: '/getgenders',
+                success: function(genders) {
+                    loadOptions($('select[name=gender]'), genders);
+                    $('select[name=gender]').val(gender);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
             $('select[name=height]').val(user.height);
         },
         error: function(error) {
             console.log(error);
-        }
-    });
-    $.ajax({
-        url: '/getcolors',
-        success: function(colors) {
-            loadOptions($('select[name=color]'), colors);
-            $('select[name=color]').val(color);
-        },
-        error: function(error) {
-            console.log(error);
-        }   
-    });    
-    $.ajax({
-        url: '/getgenders',
-        success: function(genders) {
-            loadOptions($('select[name=gender]'), genders);
-            $('select[name=gender]').val(gender);
-        },
-        error: function(error) {
-            console.log(error);
+            swal({
+                type: 'error',
+                title: 'Erro',
+                text: 'Ocorreu um erro ao carregar as informações.'
+            });
         }
     });
 
     $('#edit-user-form').submit(function() {
         $('[name=form-error]').fadeOut();
-        if (!checkPasswords())
+        if (!checkPasswords($('input[name=password]'), $('input[name=check-password]')))
             return false;
+
         var user = {
             'username': $('input[name=username]').val(),
             'email': $('input[name=email]').val(),
@@ -146,7 +158,54 @@ var initEditUserPage = function() {
             'birth': $('input[name=birth]').val(),
             'gender': {'id': $('select[name=gender]').val()},
             'color': {'id': $('select[name=color]').val()},
-            'height': {'id': $('select[name=birth]').val()}
+            'height': $('select[name=birth]').val()
+        };
+        if ($('select[name=gender]').val())
+            user.gender = {'id': $('select[name=gender]').val()};
+        if ({'id': $('select[name=color]').val()})
+            user.color = {'id': $('select[name=color]').val()};
+
+        // Tries to send new user data to server
+        initAjaxCall();
+        $.ajax({
+            type: 'POST',
+            url: '/updateuser',
+            data: JSON.stringify(user),
+            success: function(result) {
+                swal({
+                    title: 'Dados alterados com sucesso!',
+                    type: 'success',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: function(error) {
+                swal({
+                    title: 'Ocorreu um erro ao atualizar os seus dados!',
+                    text: 'Por favor, tente novamente.',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            },
+            complete: function() {
+                finishAjaxCall();
+            }
+        });
+        return false; 
+    });
+
+   $('#check-password-form').submit(function() {
+        $('[name=form-error]').fadeOut();
+        if (!checkPasswords($('input[name=new-password]'), $('input[name=check-new-password]')))
+            return false;
+        var user = {
+            'username': g_user.username,
+            'email': g_user.email,
+            'oldpassword': $('input[name=old-password]').val(),
+            'newpassword': $('input[name=new-password]').val(),
+            'birth': g_user.birth,
+            'gender': {'id': g_user.gender},
+            'color': {'id': g_user.color},
+            'height': {'id': g_user.height}
         };
         // Tries to send new user data to server
         initAjaxCall();

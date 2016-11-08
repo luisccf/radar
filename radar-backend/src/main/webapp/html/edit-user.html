@@ -49,21 +49,26 @@
                         <label class="control-label">Gênero</label>
                         <p name="form-error" class="form-error"></p>
                         <select class="form-control" name="gender">
-                            <option selected>Selecione uma opção</option>
+                            <option value="0" selected>Selecione uma opção</option>
                         </select>
                     </div>                    
                     <div class="form-group">
                         <label class="control-label">Cor</label>
                         <p name="form-error" class="form-error"></p>
                         <select class="form-control" name="color">
-                            <option selected>Selecione uma opção</option>
+                            <option value="0" selected>Selecione uma opção</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Altura</label>
                         <p name="form-error" class="form-error"></p>
                         <select class="form-control" name="height">
-                            <option selected>Selecione uma opção</option>
+                            <option value="-1" selected>Selecione uma opção</option>
+                            <option value="1">Menos de 1,50 metros</option>
+                            <option value="2">Entre 1,50 e 1,60 metros</option>
+                            <option value="3">Entre 1,60 e 1,70 metros</option>
+                            <option value="4">Entre 1,70 e 1,80 metros</option>
+                            <option value="5">Mais de 1,80 metros</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Salvar</button>
