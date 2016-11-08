@@ -59,9 +59,9 @@ public class CreateIncident extends HttpServlet {
             
             if(newIncident.getArmed() > 0) newIncident.setReliability(newIncident.getReliability()+1);
             if(newIncident.getCriminals_transport() != null) newIncident.setReliability(newIncident.getReliability()+1);
-            if(newIncident.getDescription().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
-            if(newIncident.getObjects_taken().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
-            if(newIncident.getPolice_report().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
+            if(!newIncident.getDescription().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
+            if(!newIncident.getObjects_taken().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
+            if(!newIncident.getPolice_report().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
 
             Date currentDate = new Date();
             
