@@ -92,6 +92,7 @@ var createMarker = function(incident) {
             lat: incident.latitude, 
             lng: incident.longitude
         },
+        icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
         map: map
     });
     return marker;
@@ -120,6 +121,8 @@ var createInfowindow = function(incident, marker) {
         victims_transport = 'A vítima estava ' + incident.victims_transport.name;
     }
     var date = new Date(incident.date);
+    var formatted_date = [date.getDate(), date.getMonth(), date.getFullYear()].join('/') 
+        + ' ' + [date.getHours(), date.getMinutes() ? date.getMinutes() : '00'].join(':');
     var footer = incident.user.username + ', ' 
         + date.getDate()
         + ' de ' + getMonth(date.getMonth())
@@ -137,6 +140,7 @@ var createInfowindow = function(incident, marker) {
     var rendered = Mustache.render(
         template, 
         {
+            formatted_date: formatted_date,
             formatted_address: incident.location,
             num_criminals: num_criminals ? num_criminals : '',
             num_victims: num_victims ? num_victims : '',
@@ -151,15 +155,7 @@ var createInfowindow = function(incident, marker) {
     $('#info-window-body').html(rendered);
 
     // Calculates reliability and creates star widget
-    var reliability = 0;
-    if (incident.description)
-        reliability++;
-    if (incident.armed)
-        reliability++;
-    if (incident.objects_taken)
-        reliability++;
-    if (incident.police_report)
-        reliability++;
+    var reliability = incident.reliability;
     for (var i = 0; i < reliability; i++) {
         $('#reliability').append('<i class="fa fa-star"></i>');
     }
@@ -224,16 +220,29 @@ $(function() {
             armed = $('input[name=armed]:checked').val() != undefined ?  $('input[name=armed]:checked').val() : -1,
             url = '/filterincidents';
 
-        url += '?period=' + period;
+        url += '?armed=' + armed;
         url += '&gender=' + gender;
         url += '&violence=' + violence;
-        url += '&armed=' + armed;
+        url += '&period=' + period;
+
+        if (armed == 0 && gender == 0 && violence == -1 && period == -1)
+            return;
 
         $.ajax({
             url: url,
             success: function(result) {
-                for (id in result) {
-                    markers[id].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                console.log(result);
+                var result_ids = [];
+                for (var i = 0; i < result.length; i++) {
+                    result_ids.push(result[i].id);
+                }
+                for (var i = 0; i < incidents.length; i++) {
+                    if (incidents[i] != undefined) {
+                        if ($.inArray(incidents[i].id, result_ids) >= 0)
+                            markers[incidents[i].id].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                        else
+                            markers[incidents[i].id].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+                    }
                 }
             },
             error: function(error) {
@@ -244,8 +253,8 @@ $(function() {
                 });
             },
             complete: function() {
-                $('select[name=period]').val('');
-                $('select[name=gender]').val('');
+                $('select[name=period]').val(0);
+                $('select[name=gender]').val(0);
                 $('input[name=violence]:checked').prop('checked', false);
                 $('input[name=armed]:checked').prop('checked', false);
                 $('#filter-window').modal('hide');
