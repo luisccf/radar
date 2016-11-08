@@ -193,7 +193,7 @@ var initEditUserPage = function() {
         return false; 
     });
 
-   $('#check-password-form').submit(function() {
+   $('#change-password-form').submit(function() {
         $('[name=form-error]').fadeOut();
         if (!checkPasswords($('input[name=new-password]'), $('input[name=check-new-password]')))
             return false;
