@@ -88,23 +88,23 @@ public class UpdateUser extends HttpServlet {
                                     out.println(gson.toJson(new Result(Result.OK)));
                                 } else {
                                     out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
-                                    response.setStatus(400);
+                                    response.setStatus(489);
                                 }
                             } else {
                                 out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
-                                response.setStatus(400);
+                                response.setStatus(490);
                             }                       
                         } else {
                             out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
-                            response.setStatus(400);
+                            response.setStatus(491);
                         }
                    } else {
                        out.println(gson.toJson(new Result(Result.WRONG_PASSWORD)));
-                       response.setStatus(400);
+                       response.setStatus(493);
                    }      
                 } else {
                     out.println(gson.toJson(new Result(Result.USER_DOESNT_EXISTS)));
-                    response.setStatus(400);
+                    response.setStatus(494);
                 }
                 
             } catch (Exception ex) {

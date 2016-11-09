@@ -31,8 +31,18 @@ var checkStatus = function(status) {
             .html('Nome de usuário muito curto.')
             .fadeIn();
         break;
+        case 493:
+        $('input[name=password]').siblings('[name=form-error]')
+            .html('Senha incorreta.')
+            .fadeIn();
+        break;
         default:
-        console.log('Erro desconhecido.');
+        swal({
+            title: 'Ocorreu um erro ao atualizar os seus dados!',
+            text: 'Por favor, tente novamente.',
+            type: 'error',
+            confirmButtonText: 'Ok'
+        });
     }
 }
 
@@ -152,17 +162,16 @@ var initEditUserPage = function() {
             return false;
 
         var user = {
+            'id': g_user.id,
             'username': $('input[name=username]').val(),
             'email': $('input[name=email]').val(),
             'oldpassword': $('input[name=password]').val(),
             'birth': $('input[name=birth]').val(),
-            'gender': {'id': $('select[name=gender]').val()},
-            'color': {'id': $('select[name=color]').val()},
-            'height': $('select[name=birth]').val()
+            'height': $('select[name=height]').val()
         };
-        if ($('select[name=gender]').val())
+        if ($('select[name=gender]').val() != "0")
             user.gender = {'id': $('select[name=gender]').val()};
-        if ({'id': $('select[name=color]').val()})
+        if ($('select[name=color]').val() != "0")
             user.color = {'id': $('select[name=color]').val()};
 
         // Tries to send new user data to server
@@ -172,6 +181,7 @@ var initEditUserPage = function() {
             url: '/updateuser',
             data: JSON.stringify(user),
             success: function(result) {
+                g_user = user;
                 swal({
                     title: 'Dados alterados com sucesso!',
                     type: 'success',
@@ -179,12 +189,7 @@ var initEditUserPage = function() {
                 });
             },
             error: function(error) {
-                swal({
-                    title: 'Ocorreu um erro ao atualizar os seus dados!',
-                    text: 'Por favor, tente novamente.',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
-                });
+                checkStatus(error.status);
             },
             complete: function() {
                 finishAjaxCall();
@@ -197,16 +202,21 @@ var initEditUserPage = function() {
         $('[name=form-error]').fadeOut();
         if (!checkPasswords($('input[name=new-password]'), $('input[name=check-new-password]')))
             return false;
+
         var user = {
+            'id': g_user.id,
             'username': g_user.username,
             'email': g_user.email,
             'oldpassword': $('input[name=old-password]').val(),
             'newpassword': $('input[name=new-password]').val(),
             'birth': g_user.birth,
-            'gender': {'id': g_user.gender},
-            'color': {'id': g_user.color},
-            'height': {'id': g_user.height}
+            'height': g_user.height
         };
+        if (g_user.gender !== undefined)
+            user.gender = {'id': g_user.gender.id};
+        if (g_user.color !== undefined)
+            user.color = {'id': g_user.color.id};
+
         // Tries to send new user data to server
         initAjaxCall();
         $.ajax({
@@ -214,6 +224,7 @@ var initEditUserPage = function() {
             url: '/updateuser',
             data: JSON.stringify(user),
             success: function(result) {
+                g_user = user;
                 swal({
                     title: 'Dados alterados com sucesso!',
                     type: 'success',
@@ -221,12 +232,7 @@ var initEditUserPage = function() {
                 });
             },
             error: function(error) {
-                swal({
-                    title: 'Ocorreu um erro ao atualizar os seus dados!',
-                    text: 'Por favor, tente novamente.',
-                    type: 'error',
-                    confirmButtonText: 'Ok'
-                });
+                checkStatus(error.status)
             },
             complete: function() {
                 finishAjaxCall();
@@ -245,7 +251,7 @@ var initEditUserPage = function() {
             showLoaderOnConfirm: true,
         }, function() {
             $.ajax({
-                url: '/deactivateaccount?id=' + 1,
+                url: '/deactivateaccount?id=' + g_user.id,
                 success: function() {
                     swal({
                         type: 'success',
