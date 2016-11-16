@@ -64,10 +64,19 @@ function loadTemplate(anchor) {
                         window.location.href = '/incidents';
                     },
                     error: function(error) {
-                        if (error.status == 400) {
-                            $('#form-error').html('Excesso de tentativas atingido.');
-                        } else if (error.status == 404) {
-                            $('#form-error').html('E-mail ou senha incorretos.');
+                        switch (error.status) {
+                            case 489:
+                            case 492:
+                                $('#login-form p[name=form-error]').html('E-mail ou senha incorretos.');
+                                break;
+                            case 490:
+                                $('#login-form p[name=form-error]').html('Usuário desativado.');
+                                break;
+                            case 491:
+                                $('#login-form p[name=form-error]').html('Excesso de tentativas atingido.');
+                                break;
+                            default:
+                                $('#login-form p[name=form-error]').html('Ocorreu um erro desconhecido.');
                         }
                         if ($('#login-form p[name=form-error]').is(':hidden'))
                             $('#login-form p[name=form-error]').fadeToggle();
