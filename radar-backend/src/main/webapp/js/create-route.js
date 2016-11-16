@@ -36,7 +36,7 @@ function initAutocomplete() {
         // Create a marker for each place.
         markers.push(new google.maps.Marker({
             map: map,
-            title: place.name,
+            title: place.formatted_address,
             position: place.geometry.location
         }));
         if (place.geometry.viewport) {
@@ -52,7 +52,7 @@ function initAutocomplete() {
         if (markers.length > 1) {
             calculateAndDisplayRoute(directionsDisplay, directionsService, markers, map);
         } else {
-            addLocationToList(place.name);
+            addLocationToList(place.formatted_address);
             origin = $('#pac-input').val();
         }
         $('#pac-input').val('');
@@ -148,14 +148,21 @@ function addLocationToList(name) {
 }
 
 $(function() {
-    
+    var user_id = window.location.href.split('?user=')[1];
+    if (user_id === undefined) {
+        user_id = 1;
+    }
+
     $('#add-route').click(function() {
+        $(this).prop('disabled', true);
+        $('body').css('cursor', 'wait');
         if (markers.length < 2) {
             swal({
                 title: 'Erro!',
                 text: 'Para traçar uma rota, você deve escolher no mínimo dois locais.',
                 type: 'error'
             });
+            $(this).prop('disabled', false);
         } else {
             var route = [];
             for (var i = 0; i < markers.length; i++) {
@@ -175,9 +182,10 @@ $(function() {
                     console.log(result);
                     swal({
                         title: 'Sucesso!',
+                        text: 'Sua rota foi adicionada.',
                         type: 'success'
                     }, function() {
-                        window.location.href = '/incidents'
+                        window.location.href = '/incidents';
                     });
                 },
                 error: function(e) {
@@ -187,6 +195,10 @@ $(function() {
                         type: 'error'
                     });
                     console.log(e);
+                },
+                complete: function() {
+                    $(this).prop('disabled', false);
+                    $('body').css('cursor', 'auto');
                 }
             });
         }
