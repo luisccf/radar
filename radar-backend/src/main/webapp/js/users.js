@@ -9,7 +9,7 @@ var loadOptions = function(select, items) {
     });
 }
 
-var checkStatus = function(status) {
+var checkStatus = function(status, password) {
     switch (status) {
         case 489:
         $('input[name=birth]').siblings('[name=form-error]')
@@ -32,7 +32,7 @@ var checkStatus = function(status) {
             .fadeIn();
         break;
         case 493:
-        $('input[name=password]').siblings('[name=form-error]')
+        password.siblings('[name=form-error]')
             .html('Senha incorreta.')
             .fadeIn();
         break;
@@ -88,11 +88,17 @@ var initCreateUserPage = function() {
             data: JSON.stringify(user),
             success: function(result) {
                 // Redirects to edit user info page
-                window.location.href = '/user/edit?user=' + user.username;
+                swal({
+                    type: 'success',
+                    title: 'Sucesso!',
+                    text: 'Seu usuário foi cadastrado com sucesso'
+                }, function() {
+                    window.location.href = '/user/edit?user=' + user.username;
+                });
             },
             error: function(error) {
                 $('[name=form-error]').fadeOut();
-                checkStatus(error.status);
+                checkStatus(error.status, $('input[name=password]'));
             },
             complete: function() {
                 finishAjaxCall();
@@ -150,7 +156,7 @@ var initEditUserPage = function() {
             console.log(error);
             swal({
                 type: 'error',
-                title: 'Erro',
+                title: 'Erro!',
                 text: 'Ocorreu um erro ao carregar as informações.'
             });
         }
@@ -183,13 +189,14 @@ var initEditUserPage = function() {
             success: function(result) {
                 g_user = user;
                 swal({
-                    title: 'Dados alterados com sucesso!',
+                    title: 'Sucesso!',
+                    text: 'Seus dados foram alterados.',
                     type: 'success',
                     confirmButtonText: 'OK'
                 });
             },
             error: function(error) {
-                checkStatus(error.status);
+                checkStatus(error.status, $('input[name=password]'));
             },
             complete: function() {
                 finishAjaxCall();
@@ -226,13 +233,14 @@ var initEditUserPage = function() {
             success: function(result) {
                 g_user = user;
                 swal({
-                    title: 'Dados alterados com sucesso!',
+                    title: 'Sucesso!',
+                    text: 'Sua senha foi alterada.',
                     type: 'success',
                     confirmButtonText: 'OK'
                 });
             },
             error: function(error) {
-                checkStatus(error.status)
+                checkStatus(error.status, $('input[name=old-password]'))
             },
             complete: function() {
                 finishAjaxCall();
