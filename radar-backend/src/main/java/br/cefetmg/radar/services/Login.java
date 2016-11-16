@@ -58,19 +58,19 @@ public class Login extends HttpServlet {
                                 user_got_by_email.setTries(user_got_by_email.getTries()+1);
                                 userDAO.updateUser(user_got_by_email);
                                 out.println(gson.toJson(new Result(Result.EMAIL_OR_PASSWORD_WRONG)));
-                                response.setStatus(404);
+                                response.setStatus(489);
                             }
                         } else {
                             out.println(gson.toJson(new Result(Result.DEACTIVATED_USER)));
-                            response.setStatus(400);
+                            response.setStatus(490);
                         }
                     } else {
                         out.println(gson.toJson(new Result(Result.NUMBER_OF_TRIES_EXCEEDED)));
-                        response.setStatus(400);
+                        response.setStatus(491);
                     }
                 } else {
                     out.println(gson.toJson(new Result(Result.EMAIL_OR_PASSWORD_WRONG)));
-                    response.setStatus(404);
+                    response.setStatus(492);
                 }                
             } catch (Exception ex) {
                 StringBuilder error = new StringBuilder();
