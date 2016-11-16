@@ -57,6 +57,10 @@ function initAutocomplete() {
 }
 
 $(function() {
+    var user_id = window.location.href.split('?user=')[1];
+    if (user_id === undefined) {
+        user_id = 1;
+    } 
 
     $('input[name=date]').prop('max', function(){
         return new Date().toJSON().split('T')[0];
@@ -91,6 +95,8 @@ $(function() {
             'objects_taken': $('input[name=objects_taken]').val(),
             'user': {'id': 1}
         };
+        $('form > button[type=submit]').prop('disabled', true);
+        $('body').css('cursor', 'wait');
         $.ajax({
             type: 'POST',
             url: '/createincident',
@@ -100,7 +106,7 @@ $(function() {
                 swal({
                     type: 'success',
                     title: 'Sucesso',
-                    text: 'Sua ocorrência foi criada com sucesso'
+                    text: 'Sua ocorrência foi criada.'
                 }, function() {
                     window.location.href = '/incidents';
                 });
@@ -110,8 +116,11 @@ $(function() {
                 swal({
                     type: 'error',
                     title: 'Erro',
-                    text: 'Ocorreu um erro ao criar sua ocorrência'
+                    text: 'Ocorreu um erro ao criar sua ocorrência.'
                 });
+            },
+            complete: function() {
+                $('body').css('cursor', 'auto');
             }
         })
         return false;
