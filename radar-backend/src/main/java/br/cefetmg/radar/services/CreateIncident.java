@@ -83,9 +83,9 @@ public class CreateIncident extends HttpServlet {
 
                     msg += "Local: " + newIncident.getLocation() + ".\n";
 
-                    if(newIncident.getDescription() != null) msg += "Descrição: \"" + newIncident.getDescription() + "\"\n";
+                    if(!newIncident.getDescription().equals("")) msg += "Descrição: \"" + newIncident.getDescription() + "\"\n";
 
-                    if(newIncident.getObjects_taken() != null) msg += "Objetos roubados: \"" + newIncident.getObjects_taken() + "\".\n";
+                    if(!newIncident.getObjects_taken().equals("")) msg += "Objetos roubados: \"" + newIncident.getObjects_taken() + "\".\n";
 
                     msg += "Número de assaltantes: " + newIncident.getNum_criminals() + ".\n";
 
@@ -97,7 +97,7 @@ public class CreateIncident extends HttpServlet {
 
                     msg += "Número de vítimas: " + newIncident.getNum_victims() + ".\n";
 
-                    if(newIncident.getPolice_report()!= null) msg += "Código boletim de ocorrência: " + newIncident.getPolice_report() + ".\n";
+                    if(!newIncident.getPolice_report().equals("")) msg += "Código boletim de ocorrência: " + newIncident.getPolice_report() + ".\n";
 
                     switch(newIncident.getArmed()){
                         case 1: msg += "Os criminosos não estavam armados.\n"; break;
@@ -112,18 +112,18 @@ public class CreateIncident extends HttpServlet {
                     msg += "Transporte da vítima: " + transportDAO.getById(newIncident.getVictims_transport().getId()).getName() + ".\n";
 
                     // Sender's email ID needs to be mentioned
-                    String from = "testsplaycode@gmail.com";
+                    String from = "aplicacaoradar@gmail.com";
 
                     String host = "smtp.gmail.com";
-
-                    String password = "playcodetestes";
+                    
+                    String password = "sorvetedemorango";
 
                     // Get system properties
                     Properties properties = System.getProperties();
                     properties.put("mail.smtp.starttls.enable", "true");
                     properties.put("mail.smtp.host", host);
                     properties.put("mail.smtp.user", from);
-                    properties.put("mail.smtp.password", password);  //13/07/1996
+                    properties.put("mail.smtp.password", password);
                     properties.put("mail.smtp.port", 587);
                     properties.put("mail.smtp.auth", "true");
 
@@ -145,7 +145,7 @@ public class CreateIncident extends HttpServlet {
                             // Set Subject: header field
                             message.setSubject("Radar - Aviso de ocorrência.");
                             // Now set the actual message
-                            message.setText("Foi registrada uma ocorrência em sua rota: \n\n\n\n" + msg);
+                            message.setText("Foi registrada uma ocorrência em sua rota: \n\n" + msg);
                             // Send message
                             Transport transport = session.getTransport("smtp");
                             transport.connect(host, from, password);
