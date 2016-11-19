@@ -18,23 +18,29 @@
     <section id="content">
         <div class="container">
             <div class="page-header">
-                <h2>Estatísticas por assaltantes</h2>
+                <h2>Estatísticas por circunstâncias da ocorrência</h2>
                 <p>Você pode visualizar as estatísticas das <strong>vítimas</strong>, dos <strong>assaltantes</strong> ou das <strong>circunstâncias</strong> da ocorrência.</p>
             <p>
                 <a href="/statistics/victims">Estatísticas das vítimas</a> | 
-                <a href="/statistics/circumstances">Estatísticas das circunstâncias da ocorrência</a>
+                <a href="/statistics/criminals">Estatísticas dos assaltantes</a>
             </p>
             </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div id="alone-viz" class="d3-viz">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div id="period-viz" class="d3-viz">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div id="armed-viz" class="d3-viz">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div id="objects-taken-viz" class="d3-viz">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div id="transport-viz" class="d3-viz">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div id="transport-viz" class="d3-viz">
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,6 +52,6 @@
     <script src="/js/utils.js"></script>
     <script src="/js/sweetalert.min.js"></script>
     <script src="/js/plot.js"></script>
-    <script src="/js/criminals-statistics.js"></script>
+    <script src="/js/circumstances-statistics.js"></script>
 </body>
 </html>

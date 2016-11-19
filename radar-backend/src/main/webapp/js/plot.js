@@ -9,6 +9,7 @@ var plotTreemap = function(data, container, title) {
         .size('value')     
         .title({
             'value': title,
+            'font': {'size': 20},
             'padding': titlePadding
         })
         .labels({
@@ -35,6 +36,8 @@ var plotPieChart = function(data, container, title) {
 };
 
 var plotBarChart = function(data, container, title, xlabel, ylabel) {
+    var order = data.map(function(d){ return d.id; });
+
     var visualization = d3plus.viz()
         .container(container)
         .data(data)
@@ -55,6 +58,10 @@ var plotBarChart = function(data, container, title, xlabel, ylabel) {
             'value': title,
             'padding': titlePadding
         })
+        .order({
+            'sort': 'desc',
+            'value': function(d) { return order.indexOf(d); }
+          })
         .format('pt_BR')
         .draw();
 };

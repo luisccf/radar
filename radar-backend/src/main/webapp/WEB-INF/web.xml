@@ -84,12 +84,12 @@
         <url-pattern>/statistics/criminals</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>circunstancesStatistics</servlet-name>
-        <jsp-file>/html/circunstances-statistics.html</jsp-file>
+        <servlet-name>circumstancesStatistics</servlet-name>
+        <jsp-file>/html/circumstances-statistics.html</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>circunstancesStatistics</servlet-name>
-        <url-pattern>/statistics/circunstances</url-pattern>
+        <servlet-name>circumstancesStatistics</servlet-name>
+        <url-pattern>/statistics/circumstances</url-pattern>
     </servlet-mapping>
     <jsp-config>
         <jsp-property-group>
