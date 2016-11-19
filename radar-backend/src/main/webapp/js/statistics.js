@@ -1,3 +1,5 @@
+var titlePadding = 5;
+
 $(function() {
     loadTemplate('#to-statistics');
 
@@ -69,7 +71,7 @@ var plotTreemap = function(data, container, title) {
         .size('value')     
         .title({
             'value': title,
-            'padding': 10
+            'padding': titlePadding
         })
         .format('pt_BR')
         .draw();
@@ -84,7 +86,7 @@ var plotPieChart = function(data, container, title) {
         .size('value')     
         .title({
             'value': title,
-            'padding': 10
+            'padding': titlePadding
         })
         .format('pt_BR')
         .draw();
@@ -107,7 +109,7 @@ var plotBarChart = function(data, container, title) {
         })        
         .title({
             'value': title,
-            'padding': 10
+            'padding': titlePadding
         })
         .format('pt_BR')
         .draw();
@@ -117,7 +119,42 @@ var loadVictimsStats = function() {
     $.ajax({
         url: '/statistics/victims/gender',
         success: function(data) {
-            plotBarChart('#gender-viz', 'gender', data);
+            plotTreemap(data, '#gender-viz', 'Ocorrências por gênero da vítima');
+        }
+    });
+
+    $.ajax({
+        url: '/statistics/victims/color',
+        success: function(data) {
+            plotTreemap(data, '#color-viz', 'Ocorrências por cor da vítima');
+        }
+    });
+
+    $.ajax({
+        url: '/statistics/victims/age',
+        success: function(data) {
+            plotBarChart(data, '#age-viz', 'Ocorrências por idade da vítima');
+        }
+    });
+
+    $.ajax({
+        url: '/statistics/victims/height',
+        success: function(data) {
+            plotBarChart(data, '#height-viz', 'Ocorrências por altura da vítima');
+        }
+    });
+
+    $.ajax({
+        url: '/statistics/victims/policereport',
+        success: function(data) {
+            plotPieChart(data, '#police-report-viz', 'Vítima fez boletim de ocorrências?');
+        }
+    });
+
+    $.ajax({
+        url: '/statistics/victims/alone',
+        success: function(data) {
+            plotPieChart(data, '#alone-viz', 'Vítima estava sozinha?');
         }
     });
 
