@@ -1,11 +1,8 @@
-var titlePadding = 5;
-
 $(function() {
     loadTemplate('#to-statistics');
+    // loadVictimsStats();
 
-    $('#statistics-select').on('change', function() {
-
-    });
+/* FOR TESTING */
 
     // Creates gender plot
     var data = [
@@ -62,59 +59,6 @@ $(function() {
 
 });
 
-var plotTreemap = function(data, container, title) {
-    var visualization = d3plus.viz()
-        .container(container)
-        .data(data)
-        .type('treemap')
-        .id('name')
-        .size('value')     
-        .title({
-            'value': title,
-            'padding': titlePadding
-        })
-        .format('pt_BR')
-        .draw();
-};
-
-var plotPieChart = function(data, container, title) {
-    var visualization = d3plus.viz()
-        .container(container)
-        .data(data)
-        .type('pie')
-        .id('name')
-        .size('value')     
-        .title({
-            'value': title,
-            'padding': titlePadding
-        })
-        .format('pt_BR')
-        .draw();
-};
-
-var plotBarChart = function(data, container, title) {
-    var visualization = d3plus.viz()
-        .container(container)
-        .data(data)
-        .type('bar')
-        .id('name')
-        .x({
-            'value': 'name',
-            'grid': false,
-            'axis': false
-        })
-        .y({
-            'value': 'value',
-            'grid': false
-        })        
-        .title({
-            'value': title,
-            'padding': titlePadding
-        })
-        .format('pt_BR')
-        .draw();
-};
-
 var loadVictimsStats = function() {
     $.ajax({
         url: '/statistics/victims/gender',
@@ -157,6 +101,4 @@ var loadVictimsStats = function() {
             plotPieChart(data, '#alone-viz', 'Vítima estava sozinha?');
         }
     });
-
 };
-
