@@ -23,6 +23,17 @@ $(function() {
     ];
     plotTreemap(data, '#color-viz', 'Ocorrências por cor da vítima')
 
+    // Creates age plot
+    var data = [
+        {'name': '13 a 24', 'value': 10},
+        {'name': '25 a 36', 'value': 20},
+        {'name': '37 a 48', 'value': 3},
+        {'name': '49 a 60', 'value': 0}, 
+        {'name': '61 a 72', 'value': 1},
+        {'name': 'maior que 72', 'value': 1}  
+    ];
+    plotTreemap(data, '#age-viz', 'Ocorrências por idade da vítima')
+
 });
 
 var plotTreemap = function(data, container, title) {
