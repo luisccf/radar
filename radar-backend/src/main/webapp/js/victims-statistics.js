@@ -31,7 +31,7 @@ $(function() {
         {'name': '61 a 72', 'value': 1},
         {'name': 'maior que 72', 'value': 1}  
     ];
-    plotBarChart(data, '#age-viz', 'Ocorrências por idade da vítima');
+    plotBarChart(data, '#age-viz', 'Ocorrências por idade da vítima', 'Idade', 'Quantidade');
 
     // Creates height plot 
     var data = [
@@ -41,7 +41,7 @@ $(function() {
         {'name': 'Entre 1,70 e 1,80 metros', 'value': 9}, 
         {'name': 'Mais de 1,80 metros', 'value': 1}  
     ];
-    plotBarChart(data, '#height-viz', 'Ocorrências por altura da vítima');
+    plotBarChart(data, '#height-viz', 'Ocorrências por altura da vítima', 'Altura', 'Quantidade');
 
     // Creates police report plot 
     var data = [

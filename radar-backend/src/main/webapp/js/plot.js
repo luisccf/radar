@@ -11,6 +11,10 @@ var plotTreemap = function(data, container, title) {
             'value': title,
             'padding': titlePadding
         })
+        .labels({
+            'align': 'left', 
+            'valign': 'top'
+        })
         .format('pt_BR')
         .draw();
 };
@@ -30,20 +34,22 @@ var plotPieChart = function(data, container, title) {
         .draw();
 };
 
-var plotBarChart = function(data, container, title) {
+var plotBarChart = function(data, container, title, xlabel, ylabel) {
     var visualization = d3plus.viz()
         .container(container)
         .data(data)
         .type('bar')
-        .id('name')
+        .id({'value': 'name', 'label': 'Nome'})
         .x({
             'value': 'name',
             'grid': false,
-            'axis': false
+            'axis': false,
+            'label': xlabel
         })
         .y({
             'value': 'value',
-            'grid': false
+            'grid': false,
+            'label': ylabel
         })        
         .title({
             'value': title,
