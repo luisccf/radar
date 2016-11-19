@@ -1,5 +1,5 @@
 $(function() {
-    loadTemplate('#to-statistics');
+    loadTemplate();
     // loadVictimsStats();
 
 /* FOR TESTING */

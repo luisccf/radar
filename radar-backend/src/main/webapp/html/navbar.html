@@ -14,7 +14,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
                 <li id="to-incidents"><a href="/incidents">Ocorrências</a></li>
-                <li id="to-statistics"><a href="/statistics">Estatísticas</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estatísticas<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/statistics/victims">Vítimas</a></li>
+                        <li><a href="/statistics/criminals">Assaltantes</a></li>
+                        <li><a href="/statistics/circunstances">Circunstâncias</a></li>
+                    </ul>
+                </li>
                 <li id="to-create-incidents"><a href="/incidents/create">Nova ocorrência</a></li>
                 <li id="to-create-route"><a href="/routes/create">Nova rota</a></li>
             </ul>
