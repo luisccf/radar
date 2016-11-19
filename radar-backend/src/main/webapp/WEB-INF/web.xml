@@ -67,6 +67,14 @@
         <servlet-name>createRoute</servlet-name>
         <url-pattern>/routes/create</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>statistics</servlet-name>
+        <jsp-file>/html/statistics.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>statistics</servlet-name>
+        <url-pattern>/statistics</url-pattern>
+    </servlet-mapping>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.html</url-pattern>
