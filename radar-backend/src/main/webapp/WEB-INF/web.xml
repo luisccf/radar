@@ -68,12 +68,28 @@
         <url-pattern>/routes/create</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>statistics</servlet-name>
-        <jsp-file>/html/statistics.html</jsp-file>
+        <servlet-name>victimsStatistics</servlet-name>
+        <jsp-file>/html/victims-statistics.html</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>statistics</servlet-name>
-        <url-pattern>/statistics</url-pattern>
+        <servlet-name>victimsStatistics</servlet-name>
+        <url-pattern>/statistics/victims</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>criminalsStatistics</servlet-name>
+        <jsp-file>/html/criminals-statistics.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>criminalsStatistics</servlet-name>
+        <url-pattern>/statistics/criminals</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>circunstancesStatistics</servlet-name>
+        <jsp-file>/html/circunstances-statistics.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>circunstancesStatistics</servlet-name>
+        <url-pattern>/statistics/circunstances</url-pattern>
     </servlet-mapping>
     <jsp-config>
         <jsp-property-group>

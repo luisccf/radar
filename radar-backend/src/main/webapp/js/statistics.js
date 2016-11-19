@@ -19,8 +19,15 @@ var plotd3 = function(viz, type, data) {
         .data(data)
         .type(type)
         .id('name')
-        .x('gender')
-        .y('value')
+        .x({
+            'value': 'gender',
+            'grid': false,
+            'axis': false
+        })
+        .y({
+            'value': 'value',
+            'grid': false
+        })        
         .title('Ocorrências por gênero da vítima')
         .draw();
 };
