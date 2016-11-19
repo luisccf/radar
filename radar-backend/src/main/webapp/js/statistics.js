@@ -5,22 +5,48 @@ $(function() {
 
     });
 
+    // Creates gender plot
     var data = [
-        {'gender': 'Masculino', 'name': 'Masculino', 'value': 12},
-        {'gender': 'Feminino', 'name': 'Feminino', 'value': 15},
-        {'gender': 'Outro', 'name': 'Outro', 'value': 3}  
+        {'name': 'Masculino', 'value': 12},
+        {'name': 'Feminino', 'value': 15},
+        {'name': 'Outro', 'value': 3}  
     ];
-    plotd3('#gender-viz', 'bar', data);
+    plotTreemap(data, '#gender-viz', 'Ocorrências por gênero da vítima')
+
+    // Creates color plot 
+    var data = [
+        {'name': 'Branca', 'value': 10},
+        {'name': 'Azul', 'value': 15},
+        {'name': 'Parda', 'value': 3},
+        {'name': 'Preta', 'value': 3}, 
+        {'name': 'Amarela', 'value': 5}  
+    ];
+    plotTreemap(data, '#color-viz', 'Ocorrências por cor da vítima')
+
 });
 
-var plotd3 = function(viz, type, data) {
+var plotTreemap = function(data, container, title) {
     var visualization = d3plus.viz()
-        .container(viz)
+        .container(container)
         .data(data)
-        .type(type)
+        .type('treemap')
+        .id('name')
+        .size('value')     
+        .title({
+            'value': title,
+            'padding': 10
+        })
+        .draw();
+};
+
+var plotBar = function(data, container, title) {
+    var visualization = d3plus.viz()
+        .container(container)
+        .data(data)
+        .type('bar')
         .id('name')
         .x({
-            'value': 'gender',
+            'value': 'name',
             'grid': false,
             'axis': false
         })
@@ -28,7 +54,10 @@ var plotd3 = function(viz, type, data) {
             'value': 'value',
             'grid': false
         })        
-        .title('Ocorrências por gênero da vítima')
+        .title({
+            'value': title,
+            'padding': 10
+        })
         .draw();
 };
 
@@ -36,7 +65,7 @@ var loadVictimsStats = function() {
     $.ajax({
         url: '/statistics/victims/gender',
         success: function(data) {
-            plotd3('#gender-viz', 'bar', data);
+            plotBar('#gender-viz', 'gender', data);
         }
     });
 
