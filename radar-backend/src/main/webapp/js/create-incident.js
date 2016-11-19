@@ -78,6 +78,10 @@ $(function() {
     });
 
     $('form').submit(function() {
+        var user_id = window.location.href.split('?user=')[1];
+        if (user_id === undefined) {
+            user_id = 1;
+        }
         var date = new Date($('input[name=date]').val() + 'T' + $('input[name=time]').val() + ':00Z');
         var incident = {
             'latitude': $('input[name=lat]').val(),
@@ -93,7 +97,7 @@ $(function() {
             'num_victims': $('input[name=num_victims]').val(),
             'police_report': $('input[name=police_report]').val(),
             'objects_taken': $('input[name=objects_taken]').val(),
-            'user': {'id': 1}
+            'user': {'id': user_id}
         };
         $('form > button[type=submit]').prop('disabled', true);
         $('body').css('cursor', 'wait');

@@ -155,7 +155,6 @@ $(function() {
 
     $('#add-route').click(function() {
         $(this).prop('disabled', true);
-        $('body').css('cursor', 'wait');
         if (markers.length < 2) {
             swal({
                 title: 'Erro!',
@@ -169,11 +168,12 @@ $(function() {
                 var location = {
                     'latitude': markers[i].position.lat(),
                     'longitude': markers[i].position.lng(),
-                    'user': {'id': 1},
+                    'user': {'id': user_id},
                     'name': markers[i].title,
                 };
                 route.push(location);
             }
+            $('body').css('cursor', 'wait');
             $.ajax({
                 type: 'POST',
                 url: '/createroute',

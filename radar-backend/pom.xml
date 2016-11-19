@@ -191,6 +191,17 @@
                 <db.senha>rafael</db.senha>
             </properties>
         </profile>
+         <profile>
+            <id>dev-luis</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <db.url>jdbc:mysql://localhost:3306/radar?zeroDateTimeBehavior=convertToNull</db.url>
+                <db.usuario>root</db.usuario>
+                <db.senha>op</db.senha>
+            </properties>
+        </profile>
         <profile>
             <id>int-heroku</id>
             <properties>
