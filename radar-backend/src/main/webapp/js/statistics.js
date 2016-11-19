@@ -11,7 +11,7 @@ $(function() {
         {'name': 'Feminino', 'value': 15},
         {'name': 'Outro', 'value': 3}  
     ];
-    plotTreemap(data, '#gender-viz', 'Ocorrências por gênero da vítima')
+    plotTreemap(data, '#gender-viz', 'Ocorrências por gênero da vítima');
 
     // Creates color plot 
     var data = [
@@ -21,7 +21,7 @@ $(function() {
         {'name': 'Preta', 'value': 3}, 
         {'name': 'Amarela', 'value': 5}  
     ];
-    plotTreemap(data, '#color-viz', 'Ocorrências por cor da vítima')
+    plotTreemap(data, '#color-viz', 'Ocorrências por cor da vítima');
 
     // Creates age plot
     var data = [
@@ -32,7 +32,31 @@ $(function() {
         {'name': '61 a 72', 'value': 1},
         {'name': 'maior que 72', 'value': 1}  
     ];
-    plotTreemap(data, '#age-viz', 'Ocorrências por idade da vítima')
+    plotBarChart(data, '#age-viz', 'Ocorrências por idade da vítima');
+
+    // Creates height plot 
+    var data = [
+        {'name': 'Menos de 1,50 metros', 'value': 2},
+        {'name': 'Entre 1,50 e 1,60 metros', 'value': 20},
+        {'name': 'Entre 1,60 e 1,70 metros', 'value': 12},
+        {'name': 'Entre 1,70 e 1,80 metros', 'value': 9}, 
+        {'name': 'Mais de 1,80 metros', 'value': 1}  
+    ];
+    plotBarChart(data, '#height-viz', 'Ocorrências por altura da vítima');
+
+    // Creates police report plot 
+    var data = [
+        {'name': 'Sim', 'value': 10},
+        {'name': 'Não', 'value': 29}
+    ];
+    plotPieChart(data, '#police-report-viz', 'Vítima fez boletim de ocorrências?');
+
+    // Creates alone/not alone plot 
+    var data = [
+        {'name': 'Sim', 'value': 30},
+        {'name': 'Não', 'value': 20}
+    ];
+    plotPieChart(data, '#alone-viz', 'Vítima estava sozinha?');
 
 });
 
@@ -47,10 +71,26 @@ var plotTreemap = function(data, container, title) {
             'value': title,
             'padding': 10
         })
+        .format('pt_BR')
         .draw();
 };
 
-var plotBar = function(data, container, title) {
+var plotPieChart = function(data, container, title) {
+    var visualization = d3plus.viz()
+        .container(container)
+        .data(data)
+        .type('pie')
+        .id('name')
+        .size('value')     
+        .title({
+            'value': title,
+            'padding': 10
+        })
+        .format('pt_BR')
+        .draw();
+};
+
+var plotBarChart = function(data, container, title) {
     var visualization = d3plus.viz()
         .container(container)
         .data(data)
@@ -69,6 +109,7 @@ var plotBar = function(data, container, title) {
             'value': title,
             'padding': 10
         })
+        .format('pt_BR')
         .draw();
 };
 
@@ -76,7 +117,7 @@ var loadVictimsStats = function() {
     $.ajax({
         url: '/statistics/victims/gender',
         success: function(data) {
-            plotBar('#gender-viz', 'gender', data);
+            plotBarChart('#gender-viz', 'gender', data);
         }
     });
 
