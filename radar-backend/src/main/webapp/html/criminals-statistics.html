@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"> 
+    <title>Radar - Estatísticas</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ewert|Poppins">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/sweetalert.css">
+    <link rel="stylesheet" href="/css/statistics.css">
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/mustache.min.js"></script>
+</head>
+<body>
+    <header></header>
+    <section id="content">
+        <div class="container">
+            <div class="page-header">
+                <h2>Estatísticas por assaltantes</h2>
+                <p>Você pode visualizar as estatísticas das <strong>vítimas</strong>, dos <strong>assaltantes</strong> ou das <strong>circunstâncias</strong> da ocorrência.</p>
+            <p>
+                <a href="/statistics/victims">Estatísticas das vítimas</a> | 
+                <a href="/statistics/circunstances">Estatísticas das circunstâncias da ocorrência</a>
+            </p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div id="alone-viz" class="d3-viz">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="armed-viz" class="d3-viz">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="transport-viz" class="d3-viz">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="//d3plus.org/js/d3.js"></script>
+    <script src="//d3plus.org/js/d3plus.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/plot.js"></script>
+    <script src="/js/criminals-statistics.js"></script>
+</body>
+</html>
