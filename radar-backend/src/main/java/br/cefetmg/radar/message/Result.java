@@ -22,6 +22,7 @@ public class Result {
     public static final String USER_NOT_FOUND = "USER_NOT_FOUND";
     public static final String DEACTIVATED_USER = "DEACTIVATED_USER";
     public static final String WRONG_PASSWORD = "WRONG_PASSWORD";
+    public static final String NOTHING_FOUND = "NOTHING_FOUND";
 
     public Result(String result) {
         this.result = result;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.cefetmg.radar.dao;
 
 import br.cefetmg.radar.entity.Incident;
@@ -12,10 +7,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-/**
- *
- * @author rafae_000
- */
 public class IncidentDAO {
     private EntityManager entityManager = null;
     
@@ -56,6 +47,111 @@ public class IncidentDAO {
         List<Incident> incidents = query.getResultList();  
         
         return incidents;
+    }
+    
+    public long CountIncidentsByGenderId(int id){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.user.gender.id=:idgender");
+        query.setParameter("idgender", id);
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByColorId(int id){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.user.color.id=:idcolor");
+        query.setParameter("idcolor", id);
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByAge(int age1, int age2){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE floor(datediff(curdate(), i.user.birth) / 365) >=" + age1
+                + " and floor(datediff(curdate(), i.user.birth) / 365) <=" + age2);
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByHeight(int height){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.user.height=:height");
+        query.setParameter("height", height);
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByAloneVictims(){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.num_victims=1");
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByNotAloneVictims(){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.num_victims>1");
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByAloneCriminals(){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.num_criminals=1");
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByNotAloneCriminals(){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.num_criminals>1");
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByArmedCriminals(int guntype){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.armed=:guntype");
+        query.setParameter("guntype", guntype);
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByHavingPoliceReport(){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.police_report!=''");
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByNotHavingPoliceReport(){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.police_report=''");
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByCriminalsTransportId(int id){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.criminals_transport.id=:idtransport");
+        query.setParameter("idtransport", id);
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByVictimsTransportId(int id){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.victims_transport.id=:idtransport");
+        query.setParameter("idtransport", id);
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByPeriod(String period_init, String period_end){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE TIME(i.date) < '" + period_end + "'" + "and TIME(i.date) > '" + period_init + "'");
+        
+        return (long) query.getSingleResult();
     }
     
 }
