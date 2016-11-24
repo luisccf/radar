@@ -3,15 +3,19 @@ package br.cefetmg.radar.services;
 
 import br.cefetmg.radar.dao.IncidentDAO;
 import br.cefetmg.radar.dao.LocationDAO;
+import br.cefetmg.radar.dao.StatisticDAO;
 import br.cefetmg.radar.dao.TransportDAO;
 import br.cefetmg.radar.entity.Incident;
 import br.cefetmg.radar.entity.Location;
+import br.cefetmg.radar.entity.Statistic;
 import br.cefetmg.radar.message.Result;
 import com.google.gson.Gson;
+import com.mchange.lang.ArrayUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -54,14 +58,16 @@ public class CreateIncident extends HttpServlet {
             LocationDAO locationDAO = new LocationDAO();
             
             TransportDAO transportDAO = new TransportDAO();
+            
+            StatisticDAO statisticDAO = new StatisticDAO();
 
             Incident newIncident = gson.fromJson(sb.toString(), Incident.class);
             
             if(newIncident.getArmed() > 0) newIncident.setReliability(newIncident.getReliability()+1);
             if(newIncident.getCriminals_transport() != null) newIncident.setReliability(newIncident.getReliability()+1);
             if(!newIncident.getDescription().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
-            if(!newIncident.getObjects_taken().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
             if(!newIncident.getPolice_report().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
+            if(!newIncident.getObjects_taken().equals("")) newIncident.setReliability(newIncident.getReliability()+1);
 
             Date currentDate = new Date();
             
@@ -70,7 +76,45 @@ public class CreateIncident extends HttpServlet {
             if(secondsdiff >= 0){ //se a data inserida for válida, adiciona a ocorrência no banco
                 newIncident.getDate().setHours(newIncident.getDate().getHours()+3);
                 incidentDAO.createIncident(newIncident);
-                out.println(gson.toJson(new Result(Result.OK)));
+                
+                if(!newIncident.getObjects_taken().equals("")){
+                    
+                    String[] objects = newIncident.getObjects_taken().split(", ");
+
+                    String[] lastobjects = objects[objects.length-1].split(" e ");
+
+                    ArrayList<String> finalobjects = new ArrayList<String>();
+
+                    finalobjects.add(objects[0]);
+
+                    for(int i = 1; i < objects.length-1; i++){
+                        finalobjects.add(objects[i]);
+                    }
+
+                    for(int i = 0; i < lastobjects.length; i++){
+                        lastobjects[i] = lastobjects[i].replace(".", "");
+                        finalobjects.add(lastobjects[i]);
+                    }
+                    
+                    for(int i = 0; i < finalobjects.size(); i++){
+                        Statistic object = new Statistic();
+                        object.setName(finalobjects.get(i));
+                        object.setValue(1);
+                        
+                        Statistic aux = statisticDAO.getByName(object.getName());
+                        
+                        if(aux == null){
+                            statisticDAO.createStatistic(object);
+                        } else {
+                            statisticDAO.updatestatistic(aux);
+                        }
+                        
+                        statisticDAO.openEntityManager();
+                    }
+                    
+                    out.println(gson.toJson(new Result(Result.OK)));
+                    
+                }
                 
                 List <Location> locations = locationDAO.getByLocation(newIncident.getLocation());
             
