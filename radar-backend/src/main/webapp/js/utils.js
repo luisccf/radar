@@ -43,7 +43,24 @@ var getMonth = function(month) {
 
 function loadTemplate(anchor) {
     $.get('/html/navbar.html', function(template) {
-        var rendered = Mustache.render(template);
+        var user_id = window.location.href.split('?user=')[1];
+        var navbar_right = '';
+        if (user_id === undefined) {
+            navbar_right = '<li id="to-signup"><a href="/signup">Cadastrar-se</a></li>\
+            <li id="to-login"><a data-toggle="modal" data-target="#login-window">Entrar<span class="sr-only">(current)</span></a></li>\
+            <li id="to-help"><a href="/help">Ajuda</a></li>';
+        } else {
+            navbar_right = '<li class="dropdown">\
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário<span class="caret"></span></a>\
+                <ul class="dropdown-menu">\
+                    <li><a href="/user/routes">Minhas rotas</a></li>\
+                </ul>\
+            </li>\
+             <li id="to-logout"><a href="/incidents">Sair</a></li>';
+        }
+        var rendered = Mustache.render(template, {
+            navbar_right: navbar_right
+        });
         $('header').html(rendered);
         $(anchor).addClass('active');
     });

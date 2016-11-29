@@ -91,6 +91,14 @@
         <servlet-name>circumstancesStatistics</servlet-name>
         <url-pattern>/statistics/circumstances</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>userRoutes</servlet-name>
+        <jsp-file>/html/routes.html</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userRoutes</servlet-name>
+        <url-pattern>/user/routes</url-pattern>
+    </servlet-mapping>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.html</url-pattern>
