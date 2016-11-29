@@ -1,7 +1,7 @@
 $(function() {
     loadTemplate();
     var user_id = window.location.href.split('?user=')[1];
-    if (user_id === undefined )
+    if (user_id === undefined)
         user_id = 1;
     $.ajax({
         url: '/getroutes?user=' + user_id,
@@ -33,5 +33,5 @@ $(function() {
         error: function(e) {
             console.log(e);
         }
-    })
+    });
 });
