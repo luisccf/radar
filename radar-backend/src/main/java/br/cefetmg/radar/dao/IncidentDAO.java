@@ -15,6 +15,11 @@ public class IncidentDAO {
         entityManager = entityManagerFactory.createEntityManager();
     }
     
+    public void openEntityManager(){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hibernate");
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+    
     public void createIncident(Incident incident) {
         try {
             entityManager.getTransaction().begin(); //inicia uma transação
@@ -150,6 +155,13 @@ public class IncidentDAO {
     public long CountIncidentsByPeriod(String period_init, String period_end){
         
         Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE TIME(i.date) < '" + period_end + "'" + "and TIME(i.date) > '" + period_init + "'");
+        
+        return (long) query.getSingleResult();
+    }
+    
+    public long CountIncidentsByLocation(String location){
+        
+        Query query = entityManager.createQuery("SELECT count(*) FROM Incident as i WHERE i.location='" + location + "'");
         
         return (long) query.getSingleResult();
     }

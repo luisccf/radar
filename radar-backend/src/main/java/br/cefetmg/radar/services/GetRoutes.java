@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.cefetmg.radar.services;
 
-import br.cefetmg.radar.dao.ServiceDAO;
-import br.cefetmg.radar.entity.Incident;
+import br.cefetmg.radar.dao.IncidentDAO;
+import br.cefetmg.radar.dao.LocationDAO;
+import br.cefetmg.radar.entity.Location;
 import br.cefetmg.radar.message.Result;
+import br.cefetmg.radar.message.ResultRoute;
 import br.cefetmg.radar.util.typeadapter.HibernateProxyTypeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,24 +18,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author rafae_000
- */
-@WebServlet(name = "GetServices", urlPatterns = {"/getservices"})
-public class GetServices extends HttpServlet {
+@WebServlet(name = "GetRoutes", urlPatterns = {"/getroutes"})
+public class GetRoutes extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         GsonBuilder b = new GsonBuilder();
         
         b.registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY);
@@ -49,11 +35,36 @@ public class GetServices extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         try {
-            ServiceDAO serviceDAO = new ServiceDAO();
             
-            List<Incident> list = serviceDAO.GetServices();
+            ArrayList <ResultRoute> result = new ArrayList<ResultRoute>();
+            
+            int userid = 1;
+            
+            LocationDAO locationDAO = new LocationDAO();
+            
+            IncidentDAO incidentDAO = new IncidentDAO();
+            
+            int num_routes = locationDAO.maxRouteId(userid);
+            
+            for(int i = 1; i <= num_routes; i++){
+                ResultRoute resultroute = new ResultRoute();
+                int incidentcounter = 0;
+                locationDAO.openEntityManager();
+                List <Location> route = locationDAO.GetRoutesById(i, userid);
+                
+                for(int j = 0; j < route.size(); j++){
+                    route.get(j).setUser(null);
+                    long incidents = incidentDAO.CountIncidentsByLocation(route.get(j).getName());
+                    incidentcounter += incidents;
+                    incidentDAO.openEntityManager();
+                }
+                
+                resultroute.setRoute(route);
+                resultroute.setNumincidents(incidentcounter);
+                result.add(resultroute);
+            }
 
-            out.println(gson.toJson(list));
+            out.println(gson.toJson(result));
             
         } catch (Exception ex) {
             StringBuilder error = new StringBuilder();

@@ -61,4 +61,11 @@ public class LocationDAO {
             return (int) query.getSingleResult();
         }
     }
+    
+    public List GetRoutesById(int route_id, int user_id){
+        
+        Query query = entityManager.createQuery("FROM Location as l WHERE l.route_id=" + route_id + " and l.user.id=" + user_id);
+        
+        return query.getResultList();
+    }
 }

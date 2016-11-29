@@ -14,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,33 +48,50 @@ public class CreateUser extends HttpServlet {
 
             Date currentDate = new Date();
             
-            long yearsdiff = Math.round((currentDate.getTime() - newUser.getBirth().getTime()) / (1000l*60*60*24*365));
-            
-            if (userDAO.getByUsername(newUser.getUsername()) == null) {
+            if (newUser.getUsername() == null){
                 if (userDAO.getByEmail(newUser.getEmail()) == null){
-                    if (yearsdiff > 13){
-                        newUser.setPassword(MD5.crypt(newUser.getPassword()));
-                        newUser.setActive(true);
-                        newUser.setTries(0);
-                         
-                        if(newUser.getHeight()== 0){
-                            newUser.setHeight(-1);
-                        }
+                    newUser.setActive(true);
+                    newUser.setTries(0);
 
-                        userDAO.createUser(newUser);
-
-                        out.println(gson.toJson(new Result(Result.OK)));
-                    } else {
-                        out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
-                        response.setStatus(489);
+                    if(newUser.getHeight()== 0){
+                        newUser.setHeight(-1);
                     }
+
+                    userDAO.createUser(newUser);
+
+                    out.println(gson.toJson(new Result(Result.OK)));
                 } else {
                     out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
                     response.setStatus(490);
-                }                       
+                }
             } else {
-                out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
-                response.setStatus(491);
+                long yearsdiff = Math.round((currentDate.getTime() - newUser.getBirth().getTime()) / (1000l*60*60*24*365));
+                if (userDAO.getByUsername(newUser.getUsername()) == null) {
+                    if (userDAO.getByEmail(newUser.getEmail()) == null){
+                        if (yearsdiff > 13){
+                            newUser.setPassword(MD5.crypt(newUser.getPassword()));
+                            newUser.setActive(true);
+                            newUser.setTries(0);
+
+                            if(newUser.getHeight()== 0){
+                                newUser.setHeight(-1);
+                            }
+
+                            userDAO.createUser(newUser);
+
+                            out.println(gson.toJson(new Result(Result.OK)));
+                        } else {
+                            out.println(gson.toJson(new Result(Result.TOO_YOUNG)));
+                            response.setStatus(489);
+                        }
+                    } else {
+                        out.println(gson.toJson(new Result(Result.EMAIL_EXISTS)));
+                        response.setStatus(490);
+                    }                       
+                } else {
+                    out.println(gson.toJson(new Result(Result.USERNAME_EXISTS)));
+                    response.setStatus(491);
+                }
             }
         } catch (Exception ex) {
             StringBuilder error = new StringBuilder();
