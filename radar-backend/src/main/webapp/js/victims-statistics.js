@@ -1,61 +1,61 @@
 $(function() {
     loadTemplate();
-    // loadVictimsStats();
+    loadVictimsStats();
 
-/* FOR TESTING */
+// /* FOR TESTING */
 
-    // Creates gender plot
-    var data = [
-        {'name': 'Masculino', 'value': 12},
-        {'name': 'Feminino', 'value': 15},
-        {'name': 'Outro', 'value': 3}  
-    ];
-    plotTreemap(data, '#gender-viz', 'Ocorrências por gênero da vítima');
+//     // Creates gender plot
+//     var data = [
+//         {'name': 'Masculino', 'value': 12},
+//         {'name': 'Feminino', 'value': 15},
+//         {'name': 'Outro', 'value': 3}  
+//     ];
+//     plotTreemap(data, '#gender-viz', 'Ocorrências por gênero da vítima');
 
-    // Creates color plot 
-    var data = [
-        {'name': 'Branca', 'value': 10},
-        {'name': 'Azul', 'value': 15},
-        {'name': 'Parda', 'value': 3},
-        {'name': 'Preta', 'value': 3}, 
-        {'name': 'Amarela', 'value': 5}  
-    ];
-    plotTreemap(data, '#color-viz', 'Ocorrências por cor da vítima');
+//     // Creates color plot 
+//     var data = [
+//         {'name': 'Branca', 'value': 10},
+//         {'name': 'Azul', 'value': 15},
+//         {'name': 'Parda', 'value': 3},
+//         {'name': 'Preta', 'value': 3}, 
+//         {'name': 'Amarela', 'value': 5}  
+//     ];
+//     plotTreemap(data, '#color-viz', 'Ocorrências por cor da vítima');
 
-    // Creates age plot
-    var data = [
-        {'name': '13 a 24', 'value': 10, 'id': 1},
-        {'name': '25 a 36', 'value': 20, 'id': 2},
-        {'name': '37 a 48', 'value': 3, 'id': 3},
-        {'name': '49 a 60', 'value': 0, 'id': 4}, 
-        {'name': '61 a 72', 'value': 1, 'id': 5},
-        {'name': 'maior que 72', 'value': 1, 'id': 6}  
-    ];
-    plotBarChart(data, '#age-viz', 'Ocorrências por idade da vítima', 'Idade', 'Quantidade');
+//     // Creates age plot
+//     var data = [
+//         {'name': '13 a 24', 'value': 10, 'id': 1},
+//         {'name': '25 a 36', 'value': 20, 'id': 2},
+//         {'name': '37 a 48', 'value': 3, 'id': 3},
+//         {'name': '49 a 60', 'value': 0, 'id': 4}, 
+//         {'name': '61 a 72', 'value': 1, 'id': 5},
+//         {'name': 'maior que 72', 'value': 1, 'id': 6}  
+//     ];
+//     plotBarChart(data, '#age-viz', 'Ocorrências por idade da vítima', 'Idade', 'Quantidade');
 
-    // Creates height plot 
-    var data = [
-        {'name': 'Menos de 1,50 metros', 'value': 2, 'id': 1},
-        {'name': 'Entre 1,50 e 1,60 metros', 'value': 20, 'id': 2},
-        {'name': 'Entre 1,60 e 1,70 metros', 'value': 12, 'id': 3},
-        {'name': 'Entre 1,70 e 1,80 metros', 'value': 9, 'id': 4}, 
-        {'name': 'Mais de 1,80 metros', 'value': 1, 'id': 5}  
-    ];
-    plotBarChart(data, '#height-viz', 'Ocorrências por altura da vítima', 'Altura', 'Quantidade');
+//     // Creates height plot 
+//     var data = [
+//         {'name': 'Menos de 1,50 metros', 'value': 2, 'id': 1},
+//         {'name': 'Entre 1,50 e 1,60 metros', 'value': 20, 'id': 2},
+//         {'name': 'Entre 1,60 e 1,70 metros', 'value': 12, 'id': 3},
+//         {'name': 'Entre 1,70 e 1,80 metros', 'value': 9, 'id': 4}, 
+//         {'name': 'Mais de 1,80 metros', 'value': 1, 'id': 5}  
+//     ];
+//     plotBarChart(data, '#height-viz', 'Ocorrências por altura da vítima', 'Altura', 'Quantidade');
 
-    // Creates police report plot 
-    var data = [
-        {'name': 'Sim', 'value': 10},
-        {'name': 'Não', 'value': 29}
-    ];
-    plotTreemap(data, '#police-report-viz', 'Vítima fez boletim de ocorrências?');
+//     // Creates police report plot 
+//     var data = [
+//         {'name': 'Sim', 'value': 10},
+//         {'name': 'Não', 'value': 29}
+//     ];
+//     plotTreemap(data, '#police-report-viz', 'Vítima fez boletim de ocorrências?');
 
-    // Creates alone/not alone plot 
-    var data = [
-        {'name': 'Sim', 'value': 30},
-        {'name': 'Não', 'value': 20}
-    ];
-    plotTreemap(data, '#alone-viz', 'Vítima estava sozinha?');
+//     // Creates alone/not alone plot 
+//     var data = [
+//         {'name': 'Sim', 'value': 30},
+//         {'name': 'Não', 'value': 20}
+//     ];
+//     plotTreemap(data, '#alone-viz', 'Vítima estava sozinha?');
 
 });
 

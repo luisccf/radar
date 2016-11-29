@@ -4,7 +4,7 @@ var plotTreemap = function(data, container, title) {
     var visualization = d3plus.viz()
         .container(container)
         .data(data)
-        .type('treemap')
+        .type('tree_map')
         .id('name')
         .size('value')     
         .title({
