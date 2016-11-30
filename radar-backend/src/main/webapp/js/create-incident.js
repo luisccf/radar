@@ -90,7 +90,7 @@ $(function() {
             'date': date,
             'description': $('textarea[name=description]').val(),
             'num_criminals': $('input[name=num_criminals]').val(),
-            'armed': $('input[name=armed]:checked').val(),
+            'armed': $('input[name=armed]:checked').val() === undefined ? -1 : $('input[name=armed]:checked').val(),
             'victims_transport': {'id': $('select[name=victims_transport]').val()},
             'criminals_transport': {'id': $('select[name=criminals_transport]').val()},
             'violence': $('input[name=violence]:checked').val(),

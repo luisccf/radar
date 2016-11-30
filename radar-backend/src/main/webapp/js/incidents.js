@@ -164,7 +164,8 @@ var createInfowindow = function(incident, marker) {
             violence: violence ? violence : '',
             blockquote: blockquote.prop('outerHTML'),
             objects_taken: objects_taken ? objects_taken : 'Nada',
-            armed: armed
+            armed: armed,
+            tweet: 'Fui assaltado em ' + incident.location + ' em ' + formatted_date + ' 😔'
         }
     );
 
@@ -220,6 +221,7 @@ function CenterControl(controlDiv, map) {
 }
 
 $(function() {
+
     $.ajax({
         url: '/getgenders',
         success: function(genders) {

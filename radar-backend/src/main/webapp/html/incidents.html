@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/css/sweetalert.css">
     <link rel="stylesheet" href="/css/map.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <script src="/js/jquery.min.js"></script>
     <script src="/js/mustache.min.js"></script>
 </head>
@@ -79,7 +78,32 @@
     <script src="/js/utils.js"></script>
     <script src="/js/incidents.js"></script>
     <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/oauth.js"></script>
+    <script>
+        window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+                if (d.getElementById(id)) return t;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+
+                t._e = [];
+                t.ready = function(f) {
+                t._e.push(f);
+                };
+
+                return t;
+        }(document, "script", "twitter-wjs"));
+    </script>
     <script id="info-window-template" type="text/mustache">
+        <div class="custom-tweet-button">
+            <a href="https://twitter.com/intent/tweet?text={{ tweet }}">
+                <i class="btn-icon"></i>
+                <span class="btn-text">Tweet</span>
+            </a>
+        </div>
         <h4>{{ formatted_address }}</h4>
         <p>{{ formatted_date }}</p>
         <p>{{ num_victims }}</p>
