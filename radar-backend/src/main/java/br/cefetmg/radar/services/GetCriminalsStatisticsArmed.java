@@ -42,12 +42,12 @@ public class GetCriminalsStatisticsArmed extends HttpServlet {
             
             stat1.setId(1);
             stat1.setName("Desarmado");
-            stat1.setValue((int)incidentDAO.CountIncidentsByArmedCriminals(0));
+            stat1.setValue((int)incidentDAO.CountIncidentsByArmedCriminals(1));
             stats.add(stat1);
             
             stat2.setId(2);
             stat2.setName("Arma de fogo");
-            stat2.setValue((int)incidentDAO.CountIncidentsByArmedCriminals(1));
+            stat2.setValue((int)incidentDAO.CountIncidentsByArmedCriminals(3));
             stats.add(stat2);
             
             stat3.setId(3);

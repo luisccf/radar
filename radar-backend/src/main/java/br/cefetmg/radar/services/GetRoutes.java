@@ -38,7 +38,7 @@ public class GetRoutes extends HttpServlet {
             
             ArrayList <ResultRoute> result = new ArrayList<ResultRoute>();
             
-            int userid = 1;
+            int userid = Integer.parseInt(request.getParameter("user"));
             
             LocationDAO locationDAO = new LocationDAO();
             
